@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void myFancyMethod(View v) {
-        String phoneNo = "2675754025";
+        String phoneNo = "3147577588";
         String message = "FUCK!!!";
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNo, null, message, null, null);
