@@ -59,24 +59,18 @@ public class MainActivity extends AppCompatActivity {
         final int[] gps = new int[] {100, 100};
         Map<String, int[]> map = new HashMap<>();
         map.put(phoneNumber, gps);
-        myFirebaseRef.child(phoneNumber).setValue(map.get(phoneNumber));
-        myFirebaseRef.child(phoneNumber).addValueEventListener(new ValueEventListener() {
+        myFirebaseRef.child("PhoneNumbers").setValue(map);
+        myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 TextView t = (TextView) findViewById(R.id.test);
                 t.setText(snapshot.getValue().toString());
-                var data = snapshot.val();
-                // data equals { "name": { "first": "Fred", "last": "Flintstone" }, "age": 53 }
-                console.log(data.name.first);  // "Fred"
-                console.log(data.age);  // 53
-                Map<String, int[]> returnMap = new HashMap<>();
-                returnMap.put()
-//                for (String s : phoneNumber) {
-//                    if (s.equals(value) {
-//
-//                    }
-//
-//                }
+                Map<String, int[]> friends = (HashMap) snapshot.getValue();
+                System.out.println("There are " + snapshot.getChildrenCount() + " phone numbers");
+//                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+//                    GPS post = postSnapshot.getValue(GPS.class);
+//                    System.out.println(post.getGps());
+
             }
 
             @Override
@@ -84,6 +78,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+//    public class GPS {
+//        private int[] gpsArray;
+//
+//        public GPS {
+//
+//        }
+//        public int[] getGps() {
+//            return gpsArray;
+//        }
+//    }
 
     public static void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
