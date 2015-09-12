@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         SharedPreferences prefs = getSharedPreferences("Friend", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         try {
-            editor.putString("FriendList", org.apache.pig.impl.util.ObjectSerializer.serialize(friendList));
+            editor.putString("FriendList", ObjectSerializer.serialize(friendList));
         } catch (IOException e) {
             e.printStackTrace();
         }
