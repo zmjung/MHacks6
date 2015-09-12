@@ -2,14 +2,19 @@ package com.example.william.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -17,15 +22,35 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.common.ConnectionResult;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
 
     private static ArrayList<Friend> friendList;
     private static TextView friendList_Text;
+    protected static final String TAG = "basic-location-sample";
+
+    /**
+     * Provides the entry point to Google Play services.
+     */
+    protected GoogleApiClient mGoogleApiClient;
+
+    /**
+     * Represents a geographical location.
+     */
+    protected Location mLastLocation;
+
+    protected TextView mLatitudeText;
+    protected TextView mLongitudeText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +60,66 @@ public class MainActivity extends AppCompatActivity {
         friendList = new ArrayList<>();
         friendList_Text = (TextView) findViewById(R.id.test);
         dataBase();
-        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API)
-                .build();
-        Location myLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        String nullText = "null";
-        TextView t = (TextView) findViewById(R.id.test);
-        t.setText(nullText);
-        if (myLastLocation != null) {
-            double myLongitude = myLastLocation.getLongitude();
-            double myLatitude = myLastLocation.getLatitude();
-            TextView tex = (TextView) findViewById(R.id.test);
-            tex.setText(myLongitude + " : " + myLatitude);
-        }
+
+
+        mLatitudeText = (TextView) findViewById((R.id.latitude_text));
+        mLongitudeText = (TextView) findViewById((R.id.longitude_text));
+
+        buildGoogleApiClient();
         friendList.add(new Friend("William Hsu", "5103649006"));
     }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        // Provides a simple way of getting a device's location and is well suited for
+        // applications that do not require a fine-grained location and that do not need location
+        // updates. Gets the best and most recent location currently available, which may be null
+        // in rare cases when a location is not available.
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
+            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
+        // onConnectionFailed.
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+    }
+
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        // The connection to Google Play services was lost for some reason. We call connect() to
+        // attempt to re-establish the connection.
+        Log.i(TAG, "Connection suspended");
+        mGoogleApiClient.connect();
+    }
+
 
     public void dataBase() {
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
@@ -140,4 +210,7 @@ public class MainActivity extends AppCompatActivity {
         TelephonyManager myNumber = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         return myNumber.getLine1Number();
     }
+
+
+
 }

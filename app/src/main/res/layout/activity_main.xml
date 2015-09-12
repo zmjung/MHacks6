@@ -17,6 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="32sp"/>
+        <TextView
+            android:id="@+id/latitude_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/longitude_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         </LinearLayout>
     <Button
