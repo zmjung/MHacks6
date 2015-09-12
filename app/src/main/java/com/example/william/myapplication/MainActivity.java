@@ -3,8 +3,10 @@ package com.example.william.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
@@ -25,15 +27,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
 
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -279,17 +280,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
-        try {
-            //Modes: MODE_PRIVATE, MODE_WORLD_READABLE, MODE_WORLD_WRITABLE
-            FileOutputStream output = openFileOutput("lines.txt",MODE_WORLD_READABLE);
-            DataOutputStream dout = new DataOutputStream(output);
-            dout.writeInt(friendList.size()); // Save line count
-            for(Friend line : friendList) // Save lines
-                dout.writeUTF(line.toString());
-            dout.flush(); // Flush stream ...
-            dout.close(); // ... and close.
-        }
-        catch (IOException exc) { exc.printStackTrace(); }
+//        try {
+//            //Modes: MODE_PRIVATE, MODE_WORLD_READABLE, MODE_WORLD_WRITABLE
+//            FileOutputStream output = openFileOutput("lines.txt",MODE_WORLD_READABLE);
+//            DataOutputStream dout = new DataOutputStream(output);
+//            dout.writeInt(friendList.size()); // Save line count
+//            for(Friend line : friendList) // Save lines
+//                dout.writeUTF(line.toString());
+//            dout.flush(); // Flush stream ...
+//            dout.close(); // ... and close.
+//        }
+//        catch (IOException exc) { exc.printStackTrace(); }
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(friendList);
+        prefsEditor.putString("MyObject", json);
+        prefsEditor.commit();
         if (mLastLocation != null) {
             gps.add((long) mLastLocation.getLongitude());
             gps.add((long) mLastLocation.getLatitude());
@@ -308,6 +316,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 Map<String, ArrayList<Long>> data = (HashMap) snapshot.getValue();
                 System.out.println("There are " + snapshot.getChildrenCount() + " phone numbers");
                 ArrayList<String> friends = new ArrayList<>();
+                SharedPreferences appSharedPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(this.getApplicationContext());
+                SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+                Gson gson = new Gson();
+                String json = appSharedPrefs.getString("MyObject", "");
+                friendList<Friend> = gson.fromJson(json, Friend.class);
                 for (Friend s : friendList) {
                    // int[] location = data.get(s.getNumber());
                    // System.out.println(location);
