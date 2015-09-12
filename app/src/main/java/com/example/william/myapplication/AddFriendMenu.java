@@ -34,8 +34,7 @@ public class AddFriendMenu extends AppCompatActivity {
     public void save(View view) {
         EditText name = (EditText)findViewById(R.id.nameSpace);
         EditText phoneNumber = (EditText)findViewById(R.id.phoneNumberSpace);
-        MainActivity.addFriend(name.getText().toString(),
-                Integer.parseInt(phoneNumber.getText().toString()));
+        MainActivity.addFriend(name.getText().toString(), phoneNumber.getText().toString());
         finish();
     }
 }
