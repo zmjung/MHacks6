@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.telephony.TelephonyManager;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -27,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
         myFirebaseRef.child("message").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                System.out.println(snapshot.getValue());
+                TextView t = (TextView) findViewById(R.id.test);
+                t.setText((String) snapshot.getValue());
+
             }
 
             @Override
