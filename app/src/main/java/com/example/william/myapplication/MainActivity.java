@@ -75,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
                         friends.add(s.getName());
                     }
                 }
+                String original = "";
                 for (String a : friends) {
-                    t.setText(a + " is this working");
+                    original = "\n" + original + a + " is this working";
+                    t.setText(original);
                 }
                 // ...
 //                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
