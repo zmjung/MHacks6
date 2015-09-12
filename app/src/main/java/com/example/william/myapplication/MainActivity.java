@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public static void addFriend(String name, int number) {
+    public static void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
     }
 
