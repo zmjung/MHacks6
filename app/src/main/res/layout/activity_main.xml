@@ -18,11 +18,13 @@
             <!--android:layout_alignParentLeft="true"-->
             <!--android:onClick="startUpdatesButtonHandler"-->
             <!--android:text="Start Update" />-->
-        <TextView
-            android:id="@+id/test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="32sp"/>
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="32sp"-->
+            <!--android:text="Hello World!"/>-->
+
         <TextView
             android:id="@+id/latitude_text"
             android:layout_width="match_parent"
@@ -49,7 +51,7 @@
     <ImageView android:id="@+id/mybutton"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:onClick="myFancyMethod"
         android:layout_above="@id/friend"
         android:src="@drawable/hand"/>
