@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
                 Gson gson = new Gson();
                 String json = appSharedPrefs.getString("MyObject", "");
-                friendList<Friend> = gson.fromJson(json, Friend.class);
+                Friend test = gson.fromJson(json, Friend.class);
                 for (Friend s : friendList) {
                     if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1 ) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1 ) {
                         friends.add(s.getName());
