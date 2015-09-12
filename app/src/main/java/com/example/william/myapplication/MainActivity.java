@@ -47,8 +47,14 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 TextView t = (TextView) findViewById(R.id.test);
                 t.setText(snapshot.getValue().toString());
-                Map<String, int[]> friends = (HashMap) snapshot.getValue();
+                Map<String, int[]> data = (HashMap) snapshot.getValue();
                 System.out.println("There are " + snapshot.getChildrenCount() + " phone numbers");
+                ArrayList<String> friends = new ArrayList<>();
+                for (Friend s : friendList) {
+                    int[] location = data.get(s.getNumber());
+                    
+                }
+                // ...
 //                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 //                    GPS post = postSnapshot.getValue(GPS.class);
 //                    System.out.println(post.getGps());

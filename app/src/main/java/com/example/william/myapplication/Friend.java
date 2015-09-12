@@ -11,4 +11,12 @@ public class Friend {
         this.number = number;
         this.name = name;
     }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
