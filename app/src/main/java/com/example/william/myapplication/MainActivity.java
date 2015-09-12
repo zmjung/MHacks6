@@ -12,6 +12,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import org.shaded.apache.http.NameValuePair;
+import org.shaded.apache.http.message.BasicNameValuePair;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,8 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void dataBase() {
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
-        myFirebaseRef.child("message").setValue("Do you have data? You'll love Firebase.");
-        myFirebaseRef.child("message").addValueEventListener(new ValueEventListener() {
+        final String phoneNumber = "510-364-9006";
+        final String gps = "(100, 100)";
+        NameValuePair nv = new BasicNameValuePair(phoneNumber, gps);
+        myFirebaseRef.child(nv.getName()).setValue(nv.getValue());
+        myFirebaseRef.child(nv.getName()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 System.out.println(snapshot.getValue());
