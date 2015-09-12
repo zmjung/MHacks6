@@ -4,13 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     package="com.google.android.gms.location.sample.basiclocationsample" >
-<<<<<<< Updated upstream
+
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-=======
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
->>>>>>> Stashed changes
+
 
     <application
         android:allowBackup="true"
