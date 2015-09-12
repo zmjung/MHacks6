@@ -92,9 +92,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         // Locate the UI widgets.
 //        mStartUpdatesButton = (Button) findViewById(R.id.start_updates_button);
-        mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
-        mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
-        mLastUpdateTimeTextView = (TextView) findViewById(R.id.last_update_time_text);
+//        mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
+//        mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
+//        mLastUpdateTimeTextView = (TextView) findViewById(R.id.last_update_time_text);
 
         mRequestingLocationUpdates = false;
         mLastUpdateTime = "";
