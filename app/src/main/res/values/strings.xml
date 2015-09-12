@@ -9,5 +9,6 @@
     <string name="nameSpace">Enter a Name</string>
     <string name="phoneNumberSpace">Enter a Phone Number</string>
     <string name="save">Save</string>
+    <string name="location_updated_message">Location updated</string>
 
 </resources>
