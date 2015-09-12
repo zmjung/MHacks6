@@ -1,9 +1,11 @@
 package com.example.william.myapplication;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.telephony.TelephonyManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,5 +35,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getNumber() {
+        TelephonyManager myNumber = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        String num = myNumber.getDeviceId();
+        return num;
     }
 }
