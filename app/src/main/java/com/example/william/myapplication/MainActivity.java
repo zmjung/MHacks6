@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected TextView mLongitudeText;
     protected GoogleApiClient mGoogleApiClient;
 
-    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
 
     public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         // Locate the UI widgets.
         mStartUpdatesButton = (Button) findViewById(R.id.start_updates_button);
-        mStopUpdatesButton = (Button) findViewById(R.id.stop_updates_button);
         mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
         mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
         mLastUpdateTimeTextView = (TextView) findViewById(R.id.last_update_time_text);
@@ -126,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
                 mRequestingLocationUpdates = savedInstanceState.getBoolean(
                         REQUESTING_LOCATION_UPDATES_KEY);
-                setButtonsEnabledState();
+//                setButtonsEnabledState();
             }
 
             // Update the value of mCurrentLocation from the Bundle and update the UI to show the
@@ -204,29 +203,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void startUpdatesButtonHandler(View view) {
         if (!mRequestingLocationUpdates) {
             mRequestingLocationUpdates = true;
-            setButtonsEnabledState();
             startLocationUpdates();
         }
     }
 
-    public void stopUpdatesButtonHandler(View view) {
-        if (mRequestingLocationUpdates) {
-            mRequestingLocationUpdates = false;
-            setButtonsEnabledState();
-            stopLocationUpdates();
-        }
-    }
+//    public void stopUpdatesButtonHandler(View view) {
+//        if (mRequestingLocationUpdates) {
+//            mRequestingLocationUpdates = false;
+//            setButtonsEnabledState();
+//            stopLocationUpdates();
+//        }
+//    }
 
 
-    private void setButtonsEnabledState() {
-        if (mRequestingLocationUpdates) {
-            mStartUpdatesButton.setEnabled(false);
-            mStopUpdatesButton.setEnabled(true);
-        } else {
-            mStartUpdatesButton.setEnabled(true);
-            mStopUpdatesButton.setEnabled(false);
-        }
-    }
+//    private void setButtonsEnabledState() {
+//        if (mRequestingLocationUpdates) {
+//            mStartUpdatesButton.setEnabled(false);
+//        } else {
+//            mStartUpdatesButton.setEnabled(true);
+//            mStopUpdatesButton.setEnabled(false);
+//        }
+//    }
 
     private void updateUI() {
         if (mCurrentLocation != null) {

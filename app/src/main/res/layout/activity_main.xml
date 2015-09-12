@@ -18,15 +18,6 @@
             android:layout_alignParentLeft="true"
             android:onClick="startUpdatesButtonHandler"
             android:text="Start Update" />
-
-        <Button
-            android:id="@+id/stop_updates_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:enabled="false"
-            android:onClick="stopUpdatesButtonHandler"
-            android:text="Stop Update" />
         <TextView
             android:id="@+id/test"
             android:layout_width="match_parent"
