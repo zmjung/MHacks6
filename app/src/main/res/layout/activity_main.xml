@@ -27,6 +27,7 @@
             android:layout_height="wrap_content" />
 
         </LinearLayout>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +35,12 @@
         android:layout_gravity="bottom"
         android:onClick="addFriendMenu"
         android:layout_alignParentBottom="true" />
-    />
+
+    <Button android:id="@+id/mybutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FUCK!!!"
+        android:onClick="myFancyMethod" />
+
 </RelativeLayout>
 

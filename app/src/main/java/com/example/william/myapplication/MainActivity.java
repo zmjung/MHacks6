@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
+
         friendList = new ArrayList<>();
         friendList_Text = (TextView) findViewById(R.id.test);
         dataBase();
@@ -59,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         buildGoogleApiClient();
         friendList.add(new Friend("William Hsu", "5103649006"));
+
+        Button btn = (Button) findViewById(R.id.mybutton);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myFancyMethod(v);
+            }
+        });
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -208,6 +219,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return myNumber.getLine1Number();
     }
 
+    public void myFancyMethod(View v) {
 
+    }
 
 }
