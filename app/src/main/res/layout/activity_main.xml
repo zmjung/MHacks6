@@ -53,6 +53,13 @@
         android:onClick="myFancyMethod"
         android:layout_above="@id/friend"
         android:src="@drawable/hand"/>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="createNotification"
+        android:text="Create Notification" >
+    </Button>
 
 </RelativeLayout>
 
