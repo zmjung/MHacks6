@@ -4,14 +4,10 @@ package com.example.william.myapplication;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
@@ -34,14 +30,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -308,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 for (Friend s : friendList) {
                     if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1) {
                         friends.add(s.getName());
-                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext())
                                 .setSmallIcon(android.R.drawable.stat_sys_download_done)
                                 .setContentTitle("My notification")
                                 .setContentText("Hello World!");;
@@ -339,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        }
 //    }
 
-    private void addFriend(String name, String number) {
+    public static void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
         friendList_Text.setText(friendList_Text.getText() + "\n" + name + " : " + number);
     }
@@ -384,19 +378,5 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
     }
 
-    private void createNotification(View view) {
-
-        Intent intent = new Intent(this, DisplayNotification.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
-
-        Notification noti = new Notification.Builder(this)
-                .setContentTitle("New mail from " + "test@gmail.com")
-                .setContentText("Subject").setSmallIcon(R.drawable.icon)
-                .setContentIntent(pIntent);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        noti.flags |= Notification.FLAG_AUTO_CANCEL;
-
-        notificationManager.notify(0, noti);
-    }
 
 }
