@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         final String phoneNumber = "510-364-9006";
         final int[] gps = new int[] {100, 100};
-        Map<String, int[]> map = new HashMap<String, int[]>();
+        Map<String, int[]> map = new HashMap<>();
         map.put(phoneNumber, gps);
         myFirebaseRef.child(phoneNumber).setValue(map.get(phoneNumber));
         myFirebaseRef.child(phoneNumber).addValueEventListener(new ValueEventListener() {
@@ -45,6 +45,18 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 TextView t = (TextView) findViewById(R.id.test);
                 t.setText(snapshot.getValue().toString());
+                var data = snapshot.val();
+                // data equals { "name": { "first": "Fred", "last": "Flintstone" }, "age": 53 }
+                console.log(data.name.first);  // "Fred"
+                console.log(data.age);  // 53
+                Map<String, int[]> returnMap = new HashMap<>();
+                returnMap.put()
+//                for (String s : phoneNumber) {
+//                    if (s.equals(value) {
+//
+//                    }
+//
+//                }
             }
 
             @Override
