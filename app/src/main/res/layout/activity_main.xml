@@ -28,7 +28,7 @@
 
         </LinearLayout>
 
-    <Button
+    <Button android:id="@+id/friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_addFriend"
@@ -40,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="FUCK!!!"
-        android:onClick="myFancyMethod" />
+        android:onClick="myFancyMethod"
+        android:layout_above="@id/friend"/>
 
 </RelativeLayout>
 
