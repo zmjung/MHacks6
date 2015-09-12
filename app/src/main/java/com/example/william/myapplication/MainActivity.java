@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      * Represents a geographical location.
      */
     protected Location mCurrentLocation;
-
     protected Button mStartUpdatesButton;
     protected Button mStopUpdatesButton;
     protected TextView mLastUpdateTimeTextView;
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected Boolean mRequestingLocationUpdates;
 
     protected String mLastUpdateTime;
-
+    private double newLatitude;
+    private double newLongitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,9 +107,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         buildGoogleApiClient();
         friendList.add(new Friend("William Hsu", "5103649006"));
 
-        Button btn = (Button) findViewById(R.id.mybutton);
-
-        btn.setOnClickListener(new View.OnClickListener() {
+        ImageView buttonImage = (ImageView) findViewById(R.id.mybutton);
+        buttonImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myFancyMethod(v);
@@ -225,15 +225,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private void updateUI() {
         if (mCurrentLocation != null) {
+            newLatitude = mCurrentLocation.getLatitude();
+            newLongitude = mCurrentLocation.getLongitude();
             mLatitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
             mLongitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
             mLastUpdateTimeTextView.setText(mLastUpdateTime);
         }
     }
 
-    protected void stopLocationUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-    }
+//    protected void stopLocationUpdates() {
+//        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+//    }
 
 
     protected void createLocationRequest() {
@@ -299,8 +301,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         prefsEditor.putString("MyObject", json);
         prefsEditor.commit();
         if (mLastLocation != null) {
-            gps.add((long) mLastLocation.getLongitude());
-            gps.add((long) mLastLocation.getLatitude());
+            gps.add((long) newLongitude);
+            gps.add((long) newLatitude);
         } else {
             gps.add((long) 0);
             gps.add((long) 0);
