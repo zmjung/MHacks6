@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     public String getNumber() {
         TelephonyManager myNumber = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String num = myNumber.getLine1Number();
-        return num;
+        return myNumber.getLine1Number();
     }
 }
