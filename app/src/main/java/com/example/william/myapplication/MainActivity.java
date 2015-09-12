@@ -2,10 +2,7 @@ package com.example.william.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -14,22 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.common.ConnectionResult;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
@@ -125,8 +117,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
-        gps.add((long) 100);
-        gps.add((long) 100);
+        if (mLastLocation != null) {
+            gps.add((long) mLastLocation.getLongitude());
+            gps.add((long) mLastLocation.getLatitude());
+        } else {
+            gps.add((long) 100);
+            gps.add((long) 100);
+        }
         Map<String, ArrayList<Long>> map = new HashMap<>();
         map.put(phoneNumber, gps);
         myFirebaseRef.child("PhoneNumbers").setValue(map);
