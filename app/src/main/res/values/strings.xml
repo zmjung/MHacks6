@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Buddy Slap</string>
 
-    <string name="sample">Hello world!</string>
+    <string name="sample"></string>
     <string name="action_settings">Settings</string>
+    <string name="number"></string>
 </resources>

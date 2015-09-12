@@ -1,5 +1,6 @@
 package com.example.william.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -25,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
-        dataBase();
+        TextView textViewToChange = (TextView) findViewById(R.id.number);
+        textViewToChange.setText(getNumber());
+        //dataBase();
     }
 
     public void dataBase() {
@@ -40,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 TextView t = (TextView) findViewById(R.id.test);
                 t.setText(snapshot.getValue().toString());
-
             }
 
             @Override
@@ -72,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getNumber() {
-        TelephonyManager myNumber = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        String num = myNumber.getDeviceId();
+        TelephonyManager myNumber = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String num = myNumber.getLine1Number();
         return num;
     }
 }

@@ -5,6 +5,7 @@
     package="com.google.android.gms.location.sample.basiclocationsample" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
