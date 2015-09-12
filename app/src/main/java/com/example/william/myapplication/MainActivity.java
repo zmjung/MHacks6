@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -107,7 +108,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         Button btn = (Button) findViewById(R.id.mybutton);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                myFancyMethod(v);
+//            }
+//        });
+
+        ImageView buttonImage = (ImageView) findViewById(R.id.mybutton);
+        buttonImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myFancyMethod(v);
