@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected final static String REQUESTING_LOCATION_UPDATES_KEY = "requesting-location-updates-key";
     protected final static String LOCATION_KEY = "location-key";
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
+    private Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
+    private HashMap<String, double[]> locations;
 
     /**
      * Represents a geographical location.
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      * Represents a geographical location.
      */
     protected Location mCurrentLocation;
+
     protected Button mStartUpdatesButton;
     protected Button mStopUpdatesButton;
     protected TextView mLastUpdateTimeTextView;
@@ -77,8 +80,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected Boolean mRequestingLocationUpdates;
 
     protected String mLastUpdateTime;
-    private double newLatitude;
-    private double newLongitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,6 +195,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
             updateUI();
         }
+        //need current phonenumbers
+        locations.put("currentPhonenumbers", new double[]{mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude()});
+        myFirebaseRef.child("PhoneNumbers").setValue(locations);
 //        if (mRequestingLocationUpdates) {
         startLocationUpdates();
 //        }
@@ -225,17 +230,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private void updateUI() {
         if (mCurrentLocation != null) {
-            newLatitude = mCurrentLocation.getLatitude();
-            newLongitude = mCurrentLocation.getLongitude();
             mLatitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
             mLongitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
             mLastUpdateTimeTextView.setText(mLastUpdateTime);
         }
     }
 
-//    protected void stopLocationUpdates() {
-//        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-//    }
+    protected void stopLocationUpdates() {
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+    }
 
 
     protected void createLocationRequest() {
@@ -279,7 +282,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     public void dataBase() {
-        Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
 //        try {
@@ -301,22 +303,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         prefsEditor.putString("MyObject", json);
         prefsEditor.commit();
         if (mLastLocation != null) {
-            gps.add((long) newLongitude);
-            gps.add((long) newLatitude);
+            gps.add((long) mLastLocation.getLongitude());
+            gps.add((long) mLastLocation.getLatitude());
         } else {
             gps.add((long) 0);
             gps.add((long) 0);
         }
-        Map<String, ArrayList<Long>> map = new HashMap<>();
-        map.put(phoneNumber, gps);
-        myFirebaseRef.child("PhoneNumbers").setValue(map);
         myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                TextView t = (TextView) findViewById(R.id.test);
-                t.setText(snapshot.getValue().toString());
-                Map<String, ArrayList<Long>> data = (HashMap) snapshot.getValue();
-                System.out.println("There are " + snapshot.getChildrenCount() + " phone numbers");
+                locations = (HashMap) snapshot.getValue();
                 ArrayList<String> friends = new ArrayList<>();
                 SharedPreferences appSharedPrefs = PreferenceManager
                         .getDefaultSharedPreferences(this.getApplicationContext());
@@ -325,21 +321,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 String json = appSharedPrefs.getString("MyObject", "");
                 friendList<Friend> = gson.fromJson(json, Friend.class);
                 for (Friend s : friendList) {
-                   // int[] location = data.get(s.getNumber());
-                   // System.out.println(location);
-                    if ((Math.abs(data.get(s.getNumber()).get(0) - gps.get(0)) < 1 ) && Math.abs(data.get(s.getNumber()).get(1) - gps.get(1)) < 1 ) {
+                    if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1 ) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1 ) {
                         friends.add(s.getName());
                     }
                 }
-                String original = "";
-                for (String a : friends) {
-                    original = "\n" + original + a + " is this working";
-                    t.setText(original);
-                }
-                // ...
-//                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-//                    GPS post = postSnapshot.getValue(GPS.class);
-//                    System.out.println(post.getGps());
 
             }
 
