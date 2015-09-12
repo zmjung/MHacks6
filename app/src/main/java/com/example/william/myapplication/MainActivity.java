@@ -1,8 +1,6 @@
 package com.example.william.myapplication;
 
 
-import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -11,12 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Button;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -24,20 +22,19 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.FusedLocationProviderApi;
-import com.google.android.gms.location.LocationListener;
 
-
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.text.DateFormat;
-import java.util.Date;
-import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -282,12 +279,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
+        try {
+            //Modes: MODE_PRIVATE, MODE_WORLD_READABLE, MODE_WORLD_WRITABLE
+            FileOutputStream output = openFileOutput("lines.txt",MODE_WORLD_READABLE);
+            DataOutputStream dout = new DataOutputStream(output);
+            dout.writeInt(friendList.size()); // Save line count
+            for(Friend line : friendList) // Save lines
+                dout.writeUTF(line.toString());
+            dout.flush(); // Flush stream ...
+            dout.close(); // ... and close.
+        }
+        catch (IOException exc) { exc.printStackTrace(); }
         if (mLastLocation != null) {
             gps.add((long) mLastLocation.getLongitude());
             gps.add((long) mLastLocation.getLatitude());
         } else {
-            gps.add((long) 100);
-            gps.add((long) 100);
+            gps.add((long) 0);
+            gps.add((long) 0);
         }
         Map<String, ArrayList<Long>> map = new HashMap<>();
         map.put(phoneNumber, gps);
