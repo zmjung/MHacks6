@@ -17,7 +17,8 @@ import com.google.android.gms.common.api.GoogleApiClient.Builder;
 import com.google.android.gms.location.LocationServices;
 import android.location.Location;
 import android.widget.TextView;
-
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -30,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
                 .addApi(LocationServices.API)
                 .build();
         Location myLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        String nullText = "null";
-        TextView t = (TextView) findViewById(R.id.test);
-        t.setText(nullText);
+        if (myLastLocation == null) {
+            TextView t = (TextView) findViewById(R.id.test);
+            t.setText("hi");
+        }
         if (myLastLocation != null) {
             double myLongitude = myLastLocation.getLongitude();
             double myLatitude = myLastLocation.getLatitude();
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     public void dataBase() {
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
