@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.telephony.TelephonyManager;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -55,5 +56,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getNumber() {
+        TelephonyManager myNumber = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        String num = myNumber.getDeviceId();
+        return num;
     }
 }
