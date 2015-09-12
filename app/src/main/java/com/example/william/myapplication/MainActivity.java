@@ -230,13 +230,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        }
 //    }
 
-    private void updateUI() {
-        if (mCurrentLocation != null) {
-            mLatitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
-            mLongitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
-            mLastUpdateTimeTextView.setText(mLastUpdateTime);
-        }
-    }
+//    private void updateUI() {
+//        if (mCurrentLocation != null) {
+//            mLatitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
+//            mLongitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
+//            mLastUpdateTimeTextView.setText(mLastUpdateTime);
+//        }
+//    }
 
     protected void stopLocationUpdates() {
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
