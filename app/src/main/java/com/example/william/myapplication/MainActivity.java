@@ -2,11 +2,12 @@ package com.example.william.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,12 +16,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
-
-import com.google.android.gms.common.api.GoogleApiClient.Builder;
 import com.google.android.gms.location.LocationServices;
-import android.location.Location;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             double myLatitude = myLastLocation.getLatitude();
             TextView tex = (TextView) findViewById(R.id.test);
             tex.setText(myLongitude + " : " + myLatitude);
+        }
     }
 
     public void dataBase() {
@@ -70,7 +67,13 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> friends = new ArrayList<>();
                 for (Friend s : friendList) {
                     int[] location = data.get(s.getNumber());
-                    
+                    System.out.println(location);
+                    if (((location[0] - gps[0]) < 1 ) && (location[1] - gps[1]) < 1 ) {
+                        friends.add(s.getName());
+                    }
+                }
+                for (String a : friends) {
+                    t.setText(a);
                 }
                 // ...
 //                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
