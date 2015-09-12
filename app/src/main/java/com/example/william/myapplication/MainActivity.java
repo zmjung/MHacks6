@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 //                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 //                    GPS post = postSnapshot.getValue(GPS.class);
 //                    System.out.println(post.getGps());
-//                }
+
             }
 
             @Override
