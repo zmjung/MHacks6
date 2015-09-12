@@ -23,6 +23,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private static ArrayList<Friend> friendList;
+    private static TextView friendList_Text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
         friendList = new ArrayList<>();
+        friendList_Text = (TextView) findViewById(R.id.test);
         dataBase();
     }
 
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
+        friendList_Text.setText(friendList_Text.getText() + "\n" + name + " : " + number);
     }
 
     public void addFriendMenu(View view) {
