@@ -54,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
     public void dataBase() {
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         final String phoneNumber = "5103649006";
-        final int[] gps = new int[] {100, 100};
-        Map<String, int[]> map = new HashMap<>();
+        final ArrayList<Long> gps = new ArrayList<>();
+        gps.add((long) 100);
+        gps.add((long) 100);
+        Map<String, ArrayList<Long>> map = new HashMap<>();
         map.put(phoneNumber, gps);
         myFirebaseRef.child("PhoneNumbers").setValue(map);
         myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
@@ -63,18 +65,18 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 TextView t = (TextView) findViewById(R.id.test);
                 t.setText(snapshot.getValue().toString());
-                Map<String, int[]> data = (HashMap) snapshot.getValue();
+                Map<String, ArrayList<Long>> data = (HashMap) snapshot.getValue();
                 System.out.println("There are " + snapshot.getChildrenCount() + " phone numbers");
                 ArrayList<String> friends = new ArrayList<>();
                 for (Friend s : friendList) {
-                    int[] location = data.get(s.getNumber());
-                    System.out.println(location);
-                    if ((Math.abs(location[0] - gps[0]) < 1 ) && Math.abs(location[1] - gps[1]) < 1 ) {
+                   // int[] location = data.get(s.getNumber());
+                   // System.out.println(location);
+                    if ((Math.abs(data.get(s.getNumber()).get(0) - gps.get(0)) < 1 ) && Math.abs(data.get(s.getNumber()).get(1) - gps.get(1)) < 1 ) {
                         friends.add(s.getName());
                     }
                 }
                 for (String a : friends) {
-                    t.setText(a);
+                    t.setText(a + " is this working");
                 }
                 // ...
 //                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
