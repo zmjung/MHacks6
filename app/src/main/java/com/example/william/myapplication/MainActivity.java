@@ -106,15 +106,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         buildGoogleApiClient();
         friendList.add(new Friend("William Hsu", "5103649006"));
 
-        Button btn = (Button) findViewById(R.id.mybutton);
-
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                myFancyMethod(v);
-//            }
-//        });
-
         ImageView buttonImage = (ImageView) findViewById(R.id.mybutton);
         buttonImage.setOnClickListener(new View.OnClickListener() {
             @Override
