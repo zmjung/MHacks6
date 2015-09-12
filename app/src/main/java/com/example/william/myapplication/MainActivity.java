@@ -43,9 +43,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected final static String REQUESTING_LOCATION_UPDATES_KEY = "requesting-location-updates-key";
     protected final static String LOCATION_KEY = "location-key";
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
-    private Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
     private HashMap<String, double[]> locations;
     private static Context context;
+    private Firebase myFirebaseRef;
+
 
     /**
      * Represents a geographical location.
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         context = getApplicationContext();
         friendList = new ArrayList<>();
         friendList_Text = (TextView) findViewById(R.id.test);
+        myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         dataBase();
 
 
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
     }
-    
+
     private void updateValuesFromBundle(Bundle savedInstanceState) {
         Log.i(TAG, "Updating values from bundle");
         if (savedInstanceState != null) {
@@ -228,13 +230,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        }
 //    }
 
-    private void updateUI() {
-        if (mCurrentLocation != null) {
-            mLatitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
-            mLongitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
-            mLastUpdateTimeTextView.setText(mLastUpdateTime);
-        }
-    }
+//    private void updateUI() {
+//        if (mCurrentLocation != null) {
+//            mLatitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
+//            mLongitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
+//            mLastUpdateTimeTextView.setText(mLastUpdateTime);
+//        }
+//    }
 
     protected void stopLocationUpdates() {
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
