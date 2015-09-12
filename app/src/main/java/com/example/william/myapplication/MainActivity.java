@@ -306,35 +306,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 locations = (HashMap) snapshot.getValue();
                 ArrayList<String> friends = new ArrayList<>();
                 for (Friend s : friendList) {
-                    if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1 ) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1 ) {
+                    if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1) {
                         friends.add(s.getName());
-                        NotificationCompat.Builder mBuilder =
-                                new NotificationCompat.Builder(this)
-                                        .setSmallIcon(R.drawable.notification_icon)
-                                        .setContentTitle("My notification")
-                                        .setContentText("Hello World!");
-// Creates an explicit intent for an Activity in your app
-                        Intent resultIntent = new Intent(this, ResultActivity.class);
-
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
-                        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
-                        stackBuilder.addParentStack(ResultActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
-                        stackBuilder.addNextIntent(resultIntent);
-                        PendingIntent resultPendingIntent =
-                                stackBuilder.getPendingIntent(
-                                        0,
-                                        PendingIntent.FLAG_UPDATE_CURRENT
-                                );
-                        mBuilder.setContentIntent(resultPendingIntent);
-                        NotificationManager mNotificationManager =
-                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-                        mNotificationManager.notify(mId, mBuilder.build());
+                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                                .setContentTitle("My notification")
+                                .setContentText("Hello World!");;
+                        int mNotificationId = 001;
+                        NotificationManager mNotifyMgr =
+                                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        mNotifyMgr.notify(mNotificationId, mBuilder.build());
                     }
                 }
 
@@ -345,6 +326,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
     }
+
 
 //    public class GPS {
 //        private int[] gpsArray;
