@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Buddy Slap</string>
 
-    <string name="sample">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="button_addFriend">Add Friend</string>
+    <string name="title_activity_add_friend_menu">AddFriendMenu</string>
+
+    <string name="nameSpace">Enter a Name</string>
+    <string name="phoneNumberSpace">Enter a Phone Number</string>
+    <string name="save">Save</string>
+
 </resources>
