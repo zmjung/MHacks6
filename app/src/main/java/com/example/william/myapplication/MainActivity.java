@@ -28,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
     public void dataBase() {
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         final String phoneNumber = "510-364-9006";
-        final String gps = "(100, 100)";
-        NameValuePair nv = new BasicNameValuePair(phoneNumber, gps);
-        myFirebaseRef.child(nv.getName()).setValue(nv.getValue());
-        myFirebaseRef.child(nv.getName()).addValueEventListener(new ValueEventListener() {
+        final int[] gps = new int[] {100, 100};
+        Map<String, int[]> map = new HashMap<String, int[]>();
+        map.put(phoneNumber, gps);
+        myFirebaseRef.child(phoneNumber).setValue(map.get(phoneNumber));
+        myFirebaseRef.child(phoneNumber).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue());
                 TextView t = (TextView) findViewById(R.id.test);
-                t.setText((String) snapshot.getValue());
+                t.setText(snapshot.getValue().toString());
 
             }
 
