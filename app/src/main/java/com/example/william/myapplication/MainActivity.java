@@ -3,10 +3,7 @@ package com.example.william.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -15,26 +12,27 @@ import android.widget.Button;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+<<<<<<< HEAD
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderApi;
 
+=======
+>>>>>>> 953f204945e0ee52a1948588b0b5d757589ac2c0
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.text.DateFormat;
 import java.util.Date;
@@ -86,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
+
         friendList = new ArrayList<>();
         friendList_Text = (TextView) findViewById(R.id.test);
         dataBase();
@@ -108,6 +107,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         // API.
         buildGoogleApiClient();
         friendList.add(new Friend("William Hsu", "5103649006"));
+
+        Button btn = (Button) findViewById(R.id.mybutton);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myFancyMethod(v);
+            }
+        });
     }
     private void updateValuesFromBundle(Bundle savedInstanceState) {
         Log.i(TAG, "Updating values from bundle");
@@ -276,8 +284,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
-        gps.add((long) 100);
-        gps.add((long) 100);
+        if (mLastLocation != null) {
+            gps.add((long) mLastLocation.getLongitude());
+            gps.add((long) mLastLocation.getLatitude());
+        } else {
+            gps.add((long) 100);
+            gps.add((long) 100);
+        }
         Map<String, ArrayList<Long>> map = new HashMap<>();
         map.put(phoneNumber, gps);
         myFirebaseRef.child("PhoneNumbers").setValue(map);
@@ -362,6 +375,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return myNumber.getLine1Number();
     }
 
+    public void myFancyMethod(View v) {
 
+    }
 
 }
