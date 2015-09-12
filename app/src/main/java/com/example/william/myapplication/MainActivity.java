@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
@@ -287,62 +288,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void dataBase() {
         final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
-//        try {
-//            //Modes: MODE_PRIVATE, MODE_WORLD_READABLE, MODE_WORLD_WRITABLE
-//            FileOutputStream output = openFileOutput("lines.txt",MODE_WORLD_READABLE);
-//            DataOutputStream dout = new DataOutputStream(output);
-//            dout.writeInt(friendList.size()); // Save line count
-//            for(Friend line : friendList) // Save lines
-//                dout.writeUTF(line.toString());
-//            dout.flush(); // Flush stream ...
-//            dout.close(); // ... and close.
-//        }
-//        catch (IOException exc) { exc.printStackTrace(); }
-//        SharedPreferences appSharedPrefs = PreferenceManager
-//                .getDefaultSharedPreferences(this.getApplicationContext());
-//        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(friendList);
-//        prefsEditor.putString("MyObject", json);
-//        prefsEditor.commit();
-        SharedPreferences prefs = getSharedPreferences("Friend", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        try {
-            editor.putString("FriendList", ObjectSerializer.serialize(friendList));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        editor.commit();
-        if (mLastLocation != null) {
-            gps.add((long) mLastLocation.getLongitude());
-            gps.add((long) mLastLocation.getLatitude());
-        } else {
-            gps.add((long) 0);
-            gps.add((long) 0);
-        }
+
         myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 locations = (HashMap) snapshot.getValue();
-                ArrayList<String> friends = new ArrayList<>();
-//                SharedPreferences appSharedPrefs = PreferenceManager
-//                        .getDefaultSharedPreferences(this.getApplicationContext());
-//                SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-//                Gson gson = new Gson();
-//                String json = appSharedPrefs.getString("MyObject", "");
-//                Friend test = gson.fromJson(json, Friend.class);
-                ArrayList friendList = new ArrayList();
-                SharedPreferences prefs = getSharedPreferences("Friend", Context.MODE_PRIVATE);
-                try {
-                    friendList = (ArrayList) ObjectSerializer.deserialize(prefs.getString("FriendList", ObjectSerializer.serialize(new ArrayList())));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                for (Friend s : friendList) {
-                    if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1 ) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1 ) {
-                        friends.add(s.getName());
-                    }
-                }
 
             }
 
