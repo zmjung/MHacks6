@@ -1,11 +1,13 @@
 package com.example.william.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.telephony.TelephonyManager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
@@ -16,16 +18,20 @@ import com.firebase.client.ValueEventListener;
 import org.shaded.apache.http.NameValuePair;
 import org.shaded.apache.http.message.BasicNameValuePair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static ArrayList<Friend> friendList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
+        friendList = new ArrayList<>();
         dataBase();
     }
 
@@ -41,12 +47,22 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 TextView t = (TextView) findViewById(R.id.test);
                 t.setText(snapshot.getValue().toString());
+                t.setText(t.getText() + "\n" + snapshot.getValue().toString());
             }
 
             @Override
             public void onCancelled(FirebaseError error) {
             }
         });
+    }
+
+    public static void addFriend(String name, int number) {
+        friendList.add(new Friend(name, number));
+    }
+
+    public void addFriendMenu(View view) {
+        Intent intent = new Intent(this, AddFriendMenu.class);
+        startActivity(intent);
     }
 
     @Override
