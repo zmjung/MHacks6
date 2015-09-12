@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
@@ -28,13 +27,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 
 
@@ -295,13 +293,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //            dout.close(); // ... and close.
 //        }
 //        catch (IOException exc) { exc.printStackTrace(); }
-        SharedPreferences appSharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this.getApplicationContext());
-        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(friendList);
-        prefsEditor.putString("MyObject", json);
-        prefsEditor.commit();
+//        SharedPreferences appSharedPrefs = PreferenceManager
+//                .getDefaultSharedPreferences(this.getApplicationContext());
+//        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(friendList);
+//        prefsEditor.putString("MyObject", json);
+//        prefsEditor.commit();
+        SharedPreferences prefs = getSharedPreferences("Friend", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        try {
+            editor.putString("FriendList", org.apache.pig.impl.util.ObjectSerializer.serialize(friendList));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        editor.commit();
         if (mLastLocation != null) {
             gps.add((long) mLastLocation.getLongitude());
             gps.add((long) mLastLocation.getLatitude());
@@ -314,12 +320,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onDataChange(DataSnapshot snapshot) {
                 locations = (HashMap) snapshot.getValue();
                 ArrayList<String> friends = new ArrayList<>();
-                SharedPreferences appSharedPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(this.getApplicationContext());
-                SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-                Gson gson = new Gson();
-                String json = appSharedPrefs.getString("MyObject", "");
-                Friend test = gson.fromJson(json, Friend.class);
+//                SharedPreferences appSharedPrefs = PreferenceManager
+//                        .getDefaultSharedPreferences(this.getApplicationContext());
+//                SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+//                Gson gson = new Gson();
+//                String json = appSharedPrefs.getString("MyObject", "");
+//                Friend test = gson.fromJson(json, Friend.class);
+                ArrayList friendList = new ArrayList();
+                SharedPreferences prefs = getSharedPreferences("Friend", Context.MODE_PRIVATE);
+                try {
+                    friendList = (ArrayList) ObjectSerializer.deserialize(prefs.getString("FriendList", ObjectSerializer.serialize(new ArrayList())));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 for (Friend s : friendList) {
                     if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1 ) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1 ) {
                         friends.add(s.getName());
