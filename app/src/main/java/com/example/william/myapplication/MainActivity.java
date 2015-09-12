@@ -33,6 +33,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
     }
+    
     private void updateValuesFromBundle(Bundle savedInstanceState) {
         Log.i(TAG, "Updating values from bundle");
         if (savedInstanceState != null) {
@@ -147,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             updateUI();
         }
     }
+
     protected synchronized void buildGoogleApiClient() {
         Log.i(TAG, "Building GoogleApiClient");
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -277,6 +280,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mGoogleApiClient.connect();
     }
 
+    @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
         savedInstanceState.putParcelable(LOCATION_KEY, mCurrentLocation);
@@ -285,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
-    public void dataBase() {
+    private void dataBase() {
         final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
         if (mLastLocation != null) {
@@ -334,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        }
 //    }
 
-    public static void addFriend(String name, String number) {
+    private void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
         friendList_Text.setText(friendList_Text.getText() + "\n" + name + " : " + number);
     }
@@ -366,19 +370,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return super.onOptionsItemSelected(item);
     }
 
-    public String getNumber() {
+    private String getNumber() {
         TelephonyManager myNumber = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         return myNumber.getLine1Number();
     }
 
-    public void myFancyMethod(View v) {
+    private void myFancyMethod(View v) {
         String phoneNo = "3147577588";
-        String message = "FUCK!!!";
+        String message = "SLAP!!!";
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNo, null, message, null, null);
         Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
     }
-    public void createNotification(View view) {
+
+    private void createNotification(View view) {
 
         Intent intent = new Intent(this, DisplayNotification.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
@@ -391,7 +396,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
         notificationManager.notify(0, noti);
-
     }
 
 }
