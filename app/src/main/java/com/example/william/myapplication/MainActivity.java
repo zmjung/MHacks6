@@ -48,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
             TextView tex = (TextView) findViewById(R.id.test);
             tex.setText(myLongitude + " : " + myLatitude);
         }
+        friendList.add(new Friend("William Hsu", "5103649006"));
     }
 
     public void dataBase() {
         Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
-        final String phoneNumber = "510-364-9006";
+        final String phoneNumber = "5103649006";
         final int[] gps = new int[] {100, 100};
         Map<String, int[]> map = new HashMap<>();
         map.put(phoneNumber, gps);
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 for (Friend s : friendList) {
                     int[] location = data.get(s.getNumber());
                     System.out.println(location);
-                    if (((location[0] - gps[0]) < 1 ) && (location[1] - gps[1]) < 1 ) {
+                    if ((Math.abs(location[0] - gps[0]) < 1 ) && Math.abs(location[1] - gps[1]) < 1 ) {
                         friends.add(s.getName());
                     }
                 }
