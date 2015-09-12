@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      * Represents a geographical location.
      */
     protected Location mCurrentLocation;
-
     protected Button mStartUpdatesButton;
     protected Button mStopUpdatesButton;
     protected TextView mLastUpdateTimeTextView;
@@ -76,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected Boolean mRequestingLocationUpdates;
 
     protected String mLastUpdateTime;
-
+    private double newLatitude;
+    private double newLongitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,15 +224,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private void updateUI() {
         if (mCurrentLocation != null) {
+            newLatitude = mCurrentLocation.getLatitude();
+            newLongitude = mCurrentLocation.getLongitude();
             mLatitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
             mLongitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
             mLastUpdateTimeTextView.setText(mLastUpdateTime);
         }
     }
 
-    protected void stopLocationUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-    }
+//    protected void stopLocationUpdates() {
+//        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+//    }
 
 
     protected void createLocationRequest() {
@@ -291,8 +293,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
         catch (IOException exc) { exc.printStackTrace(); }
         if (mLastLocation != null) {
-            gps.add((long) mLastLocation.getLongitude());
-            gps.add((long) mLastLocation.getLatitude());
+            gps.add((long) newLongitude);
+            gps.add((long) newLatitude);
         } else {
             gps.add((long) 0);
             gps.add((long) 0);
