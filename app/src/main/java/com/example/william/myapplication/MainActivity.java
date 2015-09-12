@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        }
 //    }
 
-    private void addFriend(String name, String number) {
+    public static void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
         friendList_Text.setText(friendList_Text.getText() + "\n" + name + " : " + number);
     }
@@ -383,20 +383,4 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         sms.sendTextMessage(phoneNo, null, message, null, null);
         Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
     }
-
-    private void createNotification(View view) {
-
-        Intent intent = new Intent(this, DisplayNotification.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
-
-        Notification noti = new Notification.Builder(this)
-                .setContentTitle("New mail from " + "test@gmail.com")
-                .setContentText("Subject").setSmallIcon(R.drawable.icon)
-                .setContentIntent(pIntent);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        noti.flags |= Notification.FLAG_AUTO_CANCEL;
-
-        notificationManager.notify(0, noti);
-    }
-
 }
