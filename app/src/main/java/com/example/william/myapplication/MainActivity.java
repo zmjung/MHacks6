@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 TextView t = (TextView) findViewById(R.id.test);
-                t.setText((String)snapshot.getValue());
+                t.setText(snapshot.getValue().toString());
 
             }
 
