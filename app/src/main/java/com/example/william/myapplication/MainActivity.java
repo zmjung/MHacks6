@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         myFirebaseRef.child(nv.getName()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue());
                 TextView t = (TextView) findViewById(R.id.test);
                 t.setText((String) snapshot.getValue());
 
