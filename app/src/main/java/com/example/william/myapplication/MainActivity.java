@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
-        TextView textViewToChange = (TextView) findViewById(R.id.number);
-        textViewToChange.setText(getNumber());
-        //dataBase();
+        dataBase();
     }
 
     public void dataBase() {
