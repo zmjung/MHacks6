@@ -14,7 +14,13 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderApi;
 
+import com.google.android.gms.common.api.GoogleApiClient.Builder;
+import com.google.android.gms.location.LocationServices;
+import android.location.Location;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +39,18 @@ public class MainActivity extends AppCompatActivity {
         friendList = new ArrayList<>();
         friendList_Text = (TextView) findViewById(R.id.test);
         dataBase();
+        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .build();
+        Location myLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        String nullText = "null";
+        TextView t = (TextView) findViewById(R.id.test);
+        t.setText(nullText);
+        if (myLastLocation != null) {
+            double myLongitude = myLastLocation.getLongitude();
+            double myLatitude = myLastLocation.getLatitude();
+            TextView tex = (TextView) findViewById(R.id.test);
+            tex.setText(myLongitude + " : " + myLatitude);
     }
 
     public void dataBase() {
@@ -58,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 //                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 //                    GPS post = postSnapshot.getValue(GPS.class);
 //                    System.out.println(post.getGps());
-//                }
+
             }
 
             @Override
