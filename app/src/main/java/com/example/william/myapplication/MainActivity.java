@@ -292,32 +292,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void dataBase() {
         final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
-//        try {
-//            //Modes: MODE_PRIVATE, MODE_WORLD_READABLE, MODE_WORLD_WRITABLE
-//            FileOutputStream output = openFileOutput("lines.txt",MODE_WORLD_READABLE);
-//            DataOutputStream dout = new DataOutputStream(output);
-//            dout.writeInt(friendList.size()); // Save line count
-//            for(Friend line : friendList) // Save lines
-//                dout.writeUTF(line.toString());
-//            dout.flush(); // Flush stream ...
-//            dout.close(); // ... and close.
-//        }
-//        catch (IOException exc) { exc.printStackTrace(); }
-//        SharedPreferences appSharedPrefs = PreferenceManager
-//                .getDefaultSharedPreferences(this.getApplicationContext());
-//        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(friendList);
-//        prefsEditor.putString("MyObject", json);
-//        prefsEditor.commit();
-        SharedPreferences prefs = getSharedPreferences("Friend", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        try {
-            editor.putString("FriendList", ObjectSerializer.serialize(friendList));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        editor.commit();
         if (mLastLocation != null) {
             gps.add((long) mLastLocation.getLongitude());
             gps.add((long) mLastLocation.getLatitude());
@@ -330,24 +304,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onDataChange(DataSnapshot snapshot) {
                 locations = (HashMap) snapshot.getValue();
                 ArrayList<String> friends = new ArrayList<>();
-                SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-                SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-                Gson gson = new Gson();
-                String json = appSharedPrefs.getString("MyObject", "");
-                Friend test = gson.fromJson(json, Friend.class);
+                for (Friend s : friendList) {
+                    if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1 ) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1 ) {
+                        friends.add(s.getName());
+                        NotificationCompat.Builder mBuilder =
+                                new NotificationCompat.Builder(this)
+                                        .setSmallIcon(R.drawable.notification_icon)
+                                        .setContentTitle("My notification")
+                                        .setContentText("Hello World!");
+// Creates an explicit intent for an Activity in your app
+                        Intent resultIntent = new Intent(this, ResultActivity.class);
 
-                //ArrayList friendList = new ArrayList();
-                //SharedPreferences prefs = getSharedPreferences("Friend", Context.MODE_PRIVATE);
-               // try {
-                //    friendList = (ArrayList) ObjectSerializer.deserialize(prefs.getString("FriendList", ObjectSerializer.serialize(new ArrayList())));
-               // } catch (IOException e) {
-                //    e.printStackTrace();
-                //}
-                //for (Friend s : friendList) {
-                //    if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1 ) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1 ) {
-                //        friends.add(s.getName());
-                 //   }
-                //}
+// The stack builder object will contain an artificial back stack for the
+// started Activity.
+// This ensures that navigating backward from the Activity leads out of
+// your application to the Home screen.
+                        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+// Adds the back stack for the Intent (but not the Intent itself)
+                        stackBuilder.addParentStack(ResultActivity.class);
+// Adds the Intent that starts the Activity to the top of the stack
+                        stackBuilder.addNextIntent(resultIntent);
+                        PendingIntent resultPendingIntent =
+                                stackBuilder.getPendingIntent(
+                                        0,
+                                        PendingIntent.FLAG_UPDATE_CURRENT
+                                );
+                        mBuilder.setContentIntent(resultPendingIntent);
+                        NotificationManager mNotificationManager =
+                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+                        mNotificationManager.notify(mId, mBuilder.build());
+                    }
+                }
 
             }
 
