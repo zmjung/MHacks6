@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 TextView t = (TextView) findViewById(R.id.test);
                 t.setText(snapshot.getValue().toString());
-                t.setText(t.getText() + "\n" + snapshot.getValue().toString());
             }
 
             @Override
