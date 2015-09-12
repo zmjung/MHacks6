@@ -1,9 +1,7 @@
 package com.example.william.myapplication;
 
 
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -35,7 +33,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -48,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
     private Firebase myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
     private HashMap<String, double[]> locations;
+    private static Context context;
 
     /**
      * Represents a geographical location.
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
-
+        context = getApplicationContext();
         friendList = new ArrayList<>();
         friendList_Text = (TextView) findViewById(R.id.test);
         dataBase();
@@ -302,10 +300,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 for (Friend s : friendList) {
                     if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1) {
                         friends.add(s.getName());
-                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext())
-                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
-                                .setContentTitle("My notification")
-                                .setContentText("Hello World!");;
+                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+                        mBuilder.setContentTitle("Notification Alert, Click Me!");
+                        mBuilder.setContentText("Hi, This is Android Notification Detail!");
+//                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+//                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
+//                                .setContentTitle("My notification")
+//                                .setContentText("Hello World!");
                         int mNotificationId = 001;
                         NotificationManager mNotifyMgr =
                                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
