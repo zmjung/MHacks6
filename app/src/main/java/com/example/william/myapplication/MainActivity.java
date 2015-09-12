@@ -1,11 +1,15 @@
 package com.example.william.myapplication;
 
 
+import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Button;
@@ -22,14 +26,11 @@ import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-<<<<<<< HEAD
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderApi;
 
-=======
->>>>>>> 953f204945e0ee52a1948588b0b5d757589ac2c0
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -376,7 +377,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void myFancyMethod(View v) {
-
+        String phoneNo = "2675754025";
+        String message = "FUCK!!!";
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phoneNo, null, message, null, null);
+        Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
     }
 
 }
