@@ -1,5 +1,6 @@
 package com.example.william.myapplication;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    private static ArrayList<Friend> friendList;
+    protected static ArrayList<Friend> friendList;
     protected static final String TAG = "location-updates-sample";
     protected final static String REQUESTING_LOCATION_UPDATES_KEY = "requesting-location-updates-key";
     protected final static String LOCATION_KEY = "location-key";
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected String mLastUpdateTime;
 
     private static String deviceNumber;
-    private TextView friendsList;
+    private TextView friendsListView;
     private String deviceFriends = "";
 
     @Override
@@ -92,12 +93,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     friendList.add((new Friend((String) postSnapshot.getValue(), postSnapshot.getKey())));
                 }
-                friendsList = (TextView) findViewById(R.id.friendlist);
-                for (Friend f : friendList) {
-                    deviceFriends = deviceFriends + f.getName() + "-" + f.getNumber() + "\n";
-                }
-                friendsList.setText(deviceFriends);
-
             }
 
             @Override
@@ -208,8 +203,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onLocationChanged(Location location) {
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        Toast.makeText(this, getResources().getString(R.string.location_updated_message),
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, getResources().getString(R.string.location_updated_message),
+//                Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -245,8 +240,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
                         if (Math.abs(lat - curLatitude) < 10 && Math.abs(lon - curLongitude) < 10) {
-                            ((TextView) findViewById(R.id.friendsTest)).setText(lat + " : " + lon
-                                    + " | " + curLatitude + " : " + curLongitude);
+//                            ((TextView) findViewById(R.id.friendsTest)).setText(lat + " : " + lon
+//                                    + " | " + curLatitude + " : " + curLongitude);
                             friends.add(s.getName());
 //                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 //                            mBuilder.setContentTitle("Notification Alert, Click Me!");
@@ -268,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
     }
-
+    @TargetApi(21)
     private void Notify(String name, String number){
         Notification notification  = new Notification.Builder(this)
                 .setCategory(Notification.CATEGORY_MESSAGE)

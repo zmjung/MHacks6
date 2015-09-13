@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class FriendsList extends AppCompatActivity {
 
@@ -12,6 +13,12 @@ public class FriendsList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list);
+        String deviceFriends = "";
+        TextView friendsListView = (TextView) findViewById(R.id.friendlistView);
+        for (Friend f : MainActivity.friendList) {
+            deviceFriends += f.getName() + "-" + f.getNumber() + "\n";
+        }
+        friendsListView.setText(deviceFriends);
 
     }
 

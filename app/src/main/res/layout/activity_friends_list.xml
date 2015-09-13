@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:textSize="32sp"
         />
-    <TextView  android:id="@+id/friendlist"
-        android:text="Friends List" android:layout_width="wrap_content"
+    <TextView  android:id="@+id/friendlistView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/friendsTitle"
+        android:layout_below="@+id/friendsTitle"
         android:textSize="20sp"
         />
     <!--<Button android:id="@+id/backFriends"-->
