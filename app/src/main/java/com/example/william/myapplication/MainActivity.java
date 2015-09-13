@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         context = getApplicationContext();
         friendList = new ArrayList<>();
         myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
-        myFirebaseRef.child("FriendsList").child(deviceNumber).addValueEventListener(new ValueEventListener() {
+        myFirebaseRef.child("FriendsList").child("9782014798").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
@@ -227,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 double lat;
                 double lon;
                 for (Friend s : friendList) {
+                        if (((HashMap) snapshot.getValue()).containsKey(s.getNumber())) {
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
                         if (Math.abs(lat - curLatitude) < 1 && Math.abs(lon - curLongitude) < 1) {
@@ -239,6 +240,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                     (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                             mNotifyMgr.notify(mNotificationId, mBuilder.build());
                         }
+                    }
                 }
 
             }
@@ -250,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public static void addFriend(String name, String number) {
-        myFirebaseRef.child("FriendsList").child(deviceNumber).child(number).setValue(name);
+        myFirebaseRef.child("FriendsList").child("9782014798").child(number).setValue(name);
         friendList.add(new Friend(name, number));
 
     }
