@@ -38,29 +38,6 @@
             <!--android:textSize="30dp" />-->
 
         <!--<TextView-->
-            <!--android:layout_width = "match_parent"-->
-            <!--android:layout_height = "wrap_content"-->
-            <!--android:textSize = "20sp"-->
-            <!--android:text = "Hello World!"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width = "match_parent"-->
-            <!--android:layout_height = "wrap_content"-->
-            <!--android:textSize = "15sp"-->
-            <!--android:text = "\nThe purpose of this app is to find friends who are near you."/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width = "match_parent"-->
-            <!--android:layout_height = "wrap_content"-->
-            <!--android:textSize = "15sp"-->
-            <!--android:text = "\nUsing GPS, we tell you when your friends are near."/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width = "match_parent"-->
-            <!--android:layout_height = "wrap_content"-->
-            <!--android:textSize = "15sp"-->
-            <!--android:text = "\nBy 'slapping' the purple button, you send a message to friends near you."/>-->
-        <!--<TextView-->
             <!--android:id = "@+id/friendsTest"-->
             <!--android:layout_width = "match_parent"-->
             <!--android:layout_height = "wrap_content"-->

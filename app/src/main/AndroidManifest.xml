@@ -44,6 +44,10 @@
             android:name=".RemoveFriend"
             android:label="@string/title_activity_remove_friend" >
         </activity>
+        <activity
+            android:name=".About"
+            android:label="@string/title_activity_about" >
+        </activity>
     </application>
 
 </manifest>
