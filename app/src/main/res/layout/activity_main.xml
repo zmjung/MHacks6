@@ -1,16 +1,16 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "wrap_content"
+    android:layout_height = "wrap_content">
+    <LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+        xmlns:tools = "http://schemas.android.com/tools"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:paddingLeft = "@dimen/activity_horizontal_margin"
+        android:paddingRight = "@dimen/activity_horizontal_margin"
+        android:paddingTop = "@dimen/activity_vertical_margin"
+        android:orientation = "vertical"
+        android:paddingBottom = "@dimen/activity_vertical_margin" tools:context = ".MainActivity">
 
         <!--<Button-->
             <!--android:id="@+id/start_updates_button"-->
@@ -30,33 +30,33 @@
             android:textSize="30dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Hello World!"/>
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize = "20sp"
+            android:text = "Hello World!"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="\nThe purpose of this app is to find friends who are near you."/>
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize = "15sp"
+            android:text = "\nThe purpose of this app is to find friends who are near you."/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="\nUsing GPS, we tell you when your friends are near."/>
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize = "15sp"
+            android:text = "\nUsing GPS, we tell you when your friends are near."/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="\nBy 'slapping' the purple button, you send a message to friends near you."/>
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize = "15sp"
+            android:text = "\nBy 'slapping' the purple button, you send a message to friends near you."/>
         <TextView
-            android:id="@+id/friendsTest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/friendstest"/>
+            android:id = "@+id/friendsTest"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:text = "@string/friendstest"/>
         <!--<TextView-->
             <!--android:id="@+id/latitude_text"-->
             <!--android:layout_width="match_parent"-->
@@ -67,32 +67,36 @@
             <!--android:layout_height="wrap_content" />-->
 
         </LinearLayout>
-    <Button android:id="@+id/friendbutton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_gravity="center"
-        android:onClick="friendsListMenu"
-        android:text="Friends"></Button>
-    <Button android:id="@+id/friend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_addFriend"
-        android:layout_gravity="bottom"
-        android:onClick="addFriendMenu"
-        android:layout_alignParentBottom="true" />
-    <TextView
-        android:id="@+id/last_update_time_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <ImageView android:id="@+id/mybutton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentRight="true"
-        android:onClick="myFancyMethod"
-        android:layout_above="@id/friend"
-        android:src="@drawable/hand"/>
+    <ImageView android:id = "@+id/friendbutton"
+        android:layout_width = "100dp"
+        android:layout_height = "100dp"
+        android:layout_alignParentLeft = "true"
+        android:onClick = "friendsListMenu"
+        android:layout_above = "@+id/friend"
+        android:text = "Friends"
+        android:src = "@drawable/friendlist"/>
+
+    <Button android:id = "@+id/friend"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:text = "@string/button_addFriend"
+        android:layout_gravity = "bottom"
+        android:onClick = "addFriendMenu"
+        android:layout_alignParentBottom = "true" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
+    <TextView
+        android:id = "@+id/last_update_time_text"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"/>
+
+    <ImageView android:id = "@+id/mybutton"
+        android:layout_width = "100dp"
+        android:layout_height = "100dp"
+        android:layout_alignParentRight = "true"
+        android:onClick = "myFancyMethod"
+        android:layout_above = "@id/friend"
+        android:src = "@drawable/hand"/>
 
     <!--<Button-->
         <!--android:id="@+id/button1"-->
