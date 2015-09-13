@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onDataChange(DataSnapshot snapshot) {
                 double lat;
                 double lon;
+                Notify(Integer.toString(friends.size()), friends.toString());
                 for (Friend s : friendList) {
                     if (((HashMap) snapshot.getValue()).containsKey(s.getNumber())) {
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
@@ -243,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         if (Math.abs(lat - curLatitude) < 10 && Math.abs(lon - curLongitude) < 10) {
 //                            ((TextView) findViewById(R.id.friendsTest)).setText(lat + " : " + lon
 //                                    + " | " + curLatitude + " : " + curLongitude);
+
                             friends.add(s.getNumber());
 
 //                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
