@@ -2,11 +2,13 @@ package com.example.william.myapplication;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -242,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
                         if (Math.abs(lat - curLatitude) < 10 && Math.abs(lon - curLongitude) < 10) {
-                            ((TextView)findViewById(R.id.friendsTest)).setText(lat + " : " + lon
+                            ((TextView) findViewById(R.id.friendsTest)).setText(lat + " : " + lon
                                     + " | " + curLatitude + " : " + curLongitude);
                             friends.add(s.getName());
 //                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
@@ -253,7 +255,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //
 //                            // notificationID allows you to update the notification later on.
 //                            mNotificationManager.notify(notificationID, mBuilder.build());
-                            Notify();
+
+                            Notify(s.getName(), s.getNumber());
 
                         }
                     }
@@ -267,11 +270,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
     }
 
-    private void Notify(){
+    private void Notify(String name, String number){
         Notification notification  = new Notification.Builder(this)
                 .setCategory(Notification.CATEGORY_MESSAGE)
-                .setContentTitle("test")
-                .setContentText("plswork")
+                .setContentTitle(name)
+                .setContentText(number)
                 .setSmallIcon(R.drawable.mr_ic_audio_vol)
                 .setAutoCancel(true)
                 .setVisibility(1).build();

@@ -16,7 +16,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/friendsTitle"
         android:textSize="20sp"
-
         />
+    <!--<Button android:id="@+id/backFriends"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="Back"-->
+        <!--android:onClick="backMethod"-->
 
 </RelativeLayout>
