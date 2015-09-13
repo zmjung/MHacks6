@@ -239,7 +239,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onDataChange(DataSnapshot snapshot) {
                 double lat;
                 double lon;
-                Notify(Integer.toString(friends.size()), friends.toString());
                 for (Friend s : friendList) {
                     if (((HashMap) snapshot.getValue()).containsKey(s.getNumber())) {
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
@@ -274,8 +273,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void Notify(String name, String number){
         Notification notification  = new Notification.Builder(this)
                 .setCategory(Notification.CATEGORY_MESSAGE)
-                .setContentTitle(name)
-                .setContentText(number)
+                .setContentTitle(name + " is nearby!")
+                .setContentText("Open Slapchat and SLAP THEM!")
                 .setSmallIcon(R.drawable.mr_ic_audio_vol)
                 .setAutoCancel(true)
                 .setVisibility(1).build();
