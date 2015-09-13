@@ -3,7 +3,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="button_addFriend">Add Friend</string>
+    <string name="button_friendList">View Friend List</string>
     <string name="title_activity_add_friend_menu">AddFriendMenu</string>
 
     <string name="nameSpace">Enter a Name</string>

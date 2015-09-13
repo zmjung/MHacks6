@@ -16,7 +16,7 @@ public class FriendsList extends AppCompatActivity {
         String deviceFriends = "";
         TextView friendsListView = (TextView) findViewById(R.id.friendlistView);
         for (Friend f : MainActivity.friendList) {
-            deviceFriends += f.getName() + "-" + f.getNumber() + "\n";
+            deviceFriends += f.getName() + " - " + f.getNumber() + "\n";
         }
         friendsListView.setText(deviceFriends);
 

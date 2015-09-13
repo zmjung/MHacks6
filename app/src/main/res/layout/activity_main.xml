@@ -76,21 +76,21 @@
 
         </LinearLayout>
 
-    <ImageView android:id = "@+id/friendbutton"
+    <ImageView android:id = "@+id/friend"
         android:layout_width = "50dp"
         android:layout_height = "50dp"
-        android:onClick = "friendsListMenu"
+        android:onClick = "addFriendMenu"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_above = "@+id/friend"
-        android:src = "@drawable/friendlist"/>
+        android:layout_above = "@+id/friendbutton"
+        android:src = "@drawable/friendlist_2"/>
 
-    <Button android:id = "@+id/friend"
+    <Button android:id = "@+id/friendbutton"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
-        android:text = "@string/button_addFriend"
+        android:text = "@string/button_friendList"
         android:layout_gravity = "bottom"
-        android:onClick = "addFriendMenu"
+        android:onClick = "friendsListMenu"
         android:layout_alignParentBottom = "true" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
     <TextView
@@ -104,7 +104,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
         android:onClick = "myFancyMethod"
-        android:src = "@drawable/hand"/>
+        android:src = "@drawable/slap_2"/>
 
     <ImageView android:id = "@+id/removeButton"
         android:layout_width = "50dp"
@@ -112,8 +112,8 @@
         android:onClick = "removeFriendMenu"
         android:layout_marginLeft="290dp"
         android:layout_marginBottom = "20dp"
-        android:layout_above = "@id/friend"
-        android:src = "@drawable/skull"/>
+        android:layout_above = "@id/friendbutton"
+        android:src = "@drawable/skull_2"/>
 
     <!--<Button-->
         <!--android:id="@+id/button1"-->

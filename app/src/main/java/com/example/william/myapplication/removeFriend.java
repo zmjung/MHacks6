@@ -35,7 +35,6 @@ public class removeFriend extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-
     }
 
     public void delete(View view) {
