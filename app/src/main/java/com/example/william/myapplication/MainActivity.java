@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
@@ -32,6 +33,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
     private static Context context;
     private static Firebase myFirebaseRef;
-    private ArrayList<String> friends;
+    private HashSet<String> friends = new HashSet<>();
 
 
     /**
@@ -90,7 +92,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 friendList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     friendList.add((new Friend((String) postSnapshot.getValue(), postSnapshot.getKey())));
+                    System.out.println(postSnapshot.getValue() + " : " + postSnapshot.getKey());
                 }
+
             }
 
             @Override
@@ -230,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                friends = new ArrayList<>();
                 double lat;
                 double lon;
                 for (Friend s : friendList) {
@@ -240,7 +243,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         if (Math.abs(lat - curLatitude) < 10 && Math.abs(lon - curLongitude) < 10) {
 //                            ((TextView) findViewById(R.id.friendsTest)).setText(lat + " : " + lon
 //                                    + " | " + curLatitude + " : " + curLongitude);
-                            friends.add(s.getName());
+                            friends.add(s.getNumber());
+
 //                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 //                            mBuilder.setContentTitle("Notification Alert, Click Me!");
 //                            mBuilder.setContentText("Hi, This is Android Notification Detail!");
@@ -338,6 +342,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void myFancyMethod(View v) {
         String message = "SLAP!!!";
         SmsManager sms = SmsManager.getDefault();
+
         if (friends == null || friends.size() == 0) {
             sms.sendTextMessage(deviceNumber, null, message, null, null);
         } else {
@@ -349,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void about(View v) {
-        Intent intent = new Intent(this, AddFriendMenu.class);
+        Intent intent = new Intent(this, About.class);
         startActivity(intent);
     }
 }
