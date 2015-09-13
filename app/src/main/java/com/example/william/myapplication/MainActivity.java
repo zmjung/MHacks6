@@ -1,12 +1,13 @@
 package com.example.william.myapplication;
 
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -233,14 +234,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
                         if (Math.abs(lat - curLatitude) < 1 && Math.abs(lon - curLongitude) < 1) {
                             friends.add(s.getName());
-                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-                            mBuilder.setContentTitle("Notification Alert, Click Me!");
-                            mBuilder.setContentText("Hi, This is Android Notification Detail!");
-                            int notificationID = 001;
-                            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+//                            mBuilder.setContentTitle("Notification Alert, Click Me!");
+//                            mBuilder.setContentText("Hi, This is Android Notification Detail!");
+//                            int notificationID = 001;
+//                            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//                            // notificationID allows you to update the notification later on.
+//                            mNotificationManager.notify(notificationID, mBuilder.build());
+                            Notify("Message", "You've received new message");
 
-                            // notificationID allows you to update the notification later on.
-                            mNotificationManager.notify(notificationID, mBuilder.build());
                         }
                     }
                 }
@@ -253,6 +256,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
     }
 
+    private void Notify(String notificationTitle, String notificationMessage){
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        @SuppressWarnings("deprecation")
+
+        Notification notification = new Notification(R.drawable.common_signin_btn_icon_dark,"New Message", System.currentTimeMillis());
+        Intent notificationIntent = new Intent(this,NotificationView.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,notificationIntent, 0);
+
+        //notification.setLatestEventInfo(MainActivity.this, notificationTitle,notificationMessage, pendingIntent);
+        notificationManager.notify(9999, notification);
+    }
     public static void addFriend(String name, String number) {
         myFirebaseRef.child("FriendsList").child("9782014798").child(number).setValue(name);
         friendList.add(new Friend(name, number));

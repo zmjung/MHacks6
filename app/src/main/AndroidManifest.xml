@@ -32,6 +32,13 @@
             android:name=".AddFriendMenu"
             android:label="@string/title_activity_add_friend_menu" >
         </activity>
+        <activity android:name=".NotificationView"
+            android:label="Details of notification"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
     </application>
 
 </manifest>
