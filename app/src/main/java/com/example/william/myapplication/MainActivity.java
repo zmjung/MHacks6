@@ -281,6 +281,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         friendList.add(new Friend(name, number));
 
     }
+    public static void removeFriend(String name, String number) {
+        myFirebaseRef.child("FriendsList").child(deviceNumber).child(number).removeValue();
+        for (Friend f : friendList) {
+            if (f.getName().equals(name) && f.getNumber().equals(number)) {
+                friendList.remove(f);
+            }
+        }
+    }
+
+    public void removeFriendMenu(View view) {
+        Intent intent = new Intent(this, removeFriend.class);
+        startActivity(intent);
+    }
 
     public void addFriendMenu(View view) {
         Intent intent = new Intent(this, AddFriendMenu.class);

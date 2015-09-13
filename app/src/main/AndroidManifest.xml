@@ -28,19 +28,21 @@
             android:name=".AddFriendMenu"
             android:label="@string/title_activity_add_friend_menu" >
         </activity>
-
-        <activity android:name=".NotificationView"
+        <activity
+            android:name=".NotificationView"
             android:label="Details of notification"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".FriendsList"
             android:label="@string/title_activity_friends_list" >
-
+        </activity>
+        <activity
+            android:name=".removeFriend"
+            android:label="@string/title_activity_remove_friend" >
         </activity>
     </application>
 
