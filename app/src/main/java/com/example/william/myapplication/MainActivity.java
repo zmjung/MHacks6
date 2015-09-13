@@ -1,6 +1,5 @@
 package com.example.william.myapplication;
 
-
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -163,8 +162,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         }
-        myFirebaseRef.child("PhoneNumbers").child("5103649006").child("0").setValue(mCurrentLocation.getLatitude());
-        myFirebaseRef.child("PhoneNumbers").child("5103649006").child("1").setValue(mCurrentLocation.getLongitude());
+        Firebase curNumber = myFirebaseRef.child("PhoneNumbers").child("9782014798");
+        curNumber.child("0").setValue(mCurrentLocation.getLatitude());
+        curNumber.child("1").setValue(mCurrentLocation.getLongitude());
         startLocationUpdates();
     }
 
@@ -216,7 +216,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 double lat;
                 double lon;
                 for (Friend s : friendList) {
-                        System.out.println(snapshot.child(s.getNumber()).child("0").getValue());
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
                         if (Math.abs(lat - curLatitude) < 1 && Math.abs(lon - curLongitude) < 1) {
@@ -242,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public static void addFriend(String name, String number) {
         myFirebaseRef.child("FriendsList").child(deviceNumber).child(number).setValue(name);
         friendList.add(new Friend(name, number));
+
     }
 
     public void addFriendMenu(View view) {
