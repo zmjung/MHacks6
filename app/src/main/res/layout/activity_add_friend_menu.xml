@@ -22,6 +22,7 @@
         android:numeric="integer"
         android:singleLine="true"/>
     <Button
+        android:id="@+id/backButton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
