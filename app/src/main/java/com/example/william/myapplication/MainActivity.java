@@ -156,21 +156,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (mCurrentLocation == null) {
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-           //updateUI();
         }
-        //need current phonenumbers
         myFirebaseRef.child("PhoneNumbers").child("5103649006").child("0").setValue(mCurrentLocation.getLatitude());
         myFirebaseRef.child("PhoneNumbers").child("5103649006").child("1").setValue(mCurrentLocation.getLongitude());
-//        if (mRequestingLocationUpdates) {
         startLocationUpdates();
-//        }
     }
-
 
     protected void stopLocationUpdates() {
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
-
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
@@ -189,14 +183,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
-
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
     }
 
 
     @Override
     public void onConnectionSuspended(int cause) {
-
         Log.i(TAG, "Connection suspended");
         mGoogleApiClient.connect();
     }
@@ -224,7 +216,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onDataChange(DataSnapshot snapshot) {
                 ArrayList<String> friends = new ArrayList<>();
                 for (Friend s : friendList) {
-                    
                         if ((Math.abs((double)snapshot.child("PhoneNumbers").child(s.getNumber()).child("0").getValue() - (double) gps.get(0)) < 1)
                                 && Math.abs((double)snapshot.child("PhoneNumbers").child(s.getNumber()).child("1").getValue() - (double) gps.get(1)) < 1) {
                             friends.add(s.getName());
@@ -246,7 +237,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
     }
 
-
     public static void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
     }
@@ -264,12 +254,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
