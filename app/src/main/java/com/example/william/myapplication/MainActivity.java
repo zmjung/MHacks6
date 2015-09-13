@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     /**
      * Represents a geographical location.
      */
-    protected Location mLastLocation;
+    protected double curLatitude;
+    protected double curLongitude;
 
     protected TextView mLatitudeText;
     protected TextView mLongitudeText;
@@ -286,22 +287,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     private void dataBase() {
-        final ArrayList<Long> gps = new ArrayList<>();
-        if (mLastLocation != null) {
-            gps.add((long) mLastLocation.getLongitude());
-            gps.add((long) mLastLocation.getLatitude());
-        } else {
-            gps.add((long) 0);
-            gps.add((long ) 0);
-        }
         myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 ArrayList<String> friends = new ArrayList<>();
+                double lat;
+                double lon;
                 for (Friend s : friendList) {
-                    
-                        if ((Math.abs((double)snapshot.child("PhoneNumbers").child(s.getNumber()).child("0").getValue() - (double) gps.get(0)) < 1)
-                                && Math.abs((double)snapshot.child("PhoneNumbers").child(s.getNumber()).child("1").getValue() - (double) gps.get(1)) < 1) {
+                        System.out.println(snapshot.child(s.getNumber()).child("0").getValue());
+                        lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
+                        lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
+                        if (Math.abs(lat - curLatitude) < 1 && Math.abs(lon - curLongitude) < 1) {
                             friends.add(s.getName());
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
                             mBuilder.setContentTitle("Notification Alert, Click Me!");
