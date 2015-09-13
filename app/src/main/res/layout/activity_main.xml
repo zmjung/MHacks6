@@ -100,13 +100,7 @@
         android:onClick = "about"
         android:layout_above = "@id/friendbutton"
         android:src = "@drawable/about" />
-
-    <!--<Button-->
-        <!--android:id="@+id/button1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:onClick="createNotification"-->
-        <!--android:text="Create Notification" />-->
+    
 
 </RelativeLayout>
 
