@@ -180,9 +180,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         }
-        Firebase curNumber = myFirebaseRef.child("PhoneNumbers").child(deviceNumber);
-        curNumber.child("0").setValue(mCurrentLocation.getLatitude());
-        curNumber.child("1").setValue(mCurrentLocation.getLongitude());
         startLocationUpdates();
     }
 
@@ -201,6 +198,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onLocationChanged(Location location) {
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        Firebase curNumber = myFirebaseRef.child("PhoneNumbers").child(deviceNumber);
+        curNumber.child("0").setValue(mCurrentLocation.getLatitude());
+        curNumber.child("1").setValue(mCurrentLocation.getLongitude());
 //        Toast.makeText(this, getResources().getString(R.string.location_updated_message),
 //                Toast.LENGTH_SHORT).show();
     }
