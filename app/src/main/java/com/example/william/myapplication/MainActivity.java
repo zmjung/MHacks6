@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .setVisibility(1).build();
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(new Intent(this, MainActivity.class));
 // Adds the Intent that starts the Activity to the top of the stack
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
