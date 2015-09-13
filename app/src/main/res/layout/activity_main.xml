@@ -67,7 +67,13 @@
             <!--android:layout_height="wrap_content" />-->
 
         </LinearLayout>
-
+    <Button android:id="@+id/friendbutton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center"
+        android:onClick="friendsListMenu"
+        android:text="Friends"></Button>
     <Button android:id="@+id/friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
