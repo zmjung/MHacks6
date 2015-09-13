@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -237,10 +236,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
                             mBuilder.setContentTitle("Notification Alert, Click Me!");
                             mBuilder.setContentText("Hi, This is Android Notification Detail!");
-                            int mNotificationId = 001;
-                            NotificationManager mNotifyMgr =
-                                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+                            int notificationID = 001;
+                            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                            // notificationID allows you to update the notification later on.
+                            mNotificationManager.notify(notificationID, mBuilder.build());
                         }
                     }
                 }
