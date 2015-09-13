@@ -17,7 +17,7 @@
             android:layout_height="60sp"
             android:gravity = "center"
             android:textStyle="bold"
-            android:text = "PRESS ME TO SLAP A NEARBY FRIEND!!"
+            android:text = "PRESS ME TO SLAP A NEARBY FRIEND!!!"
             android:textSize = "25sp"/>
 
         <!--<Button-->
@@ -79,7 +79,7 @@
         android:layout_width = "280dp"
         android:layout_height = "280dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="90dp"
         android:onClick = "myFancyMethod"
         android:src = "@drawable/slap_2" />
 
@@ -101,12 +101,6 @@
         android:layout_above = "@id/friendbutton"
         android:src = "@drawable/about" />
 
-    <!--<Button-->
-        <!--android:id="@+id/button1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:onClick="createNotification"-->
-        <!--android:text="Create Notification" />-->
 
 </RelativeLayout>
 
