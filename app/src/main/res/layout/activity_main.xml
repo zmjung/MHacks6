@@ -102,7 +102,7 @@
         android:layout_width = "280dp"
         android:layout_height = "280dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         android:onClick = "myFancyMethod"
         android:src = "@drawable/slap_2"/>
 
