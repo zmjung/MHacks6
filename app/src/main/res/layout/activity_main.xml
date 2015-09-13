@@ -43,7 +43,11 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="\nBy 'slapping' the purple button, you send a message to friends near you."/>
-
+        <TextView
+            android:id="@+id/friendsTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/friendstest"/>
         <!--<TextView-->
             <!--android:id="@+id/latitude_text"-->
             <!--android:layout_width="match_parent"-->

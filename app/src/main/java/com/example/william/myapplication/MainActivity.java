@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -143,7 +144,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     protected void startLocationUpdates() {
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        LocationServices.FusedLocationApi
+                .requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        curLongitude = mCurrentLocation.getLongitude();
+        curLatitude = mCurrentLocation.getLatitude();
     }
 
     @Override
@@ -231,7 +235,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     if (((HashMap) snapshot.getValue()).containsKey(s.getNumber())) {
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
-                        if (Math.abs(lat - curLatitude) < 1 && Math.abs(lon - curLongitude) < 1) {
+                        ((TextView)findViewById(R.id.friendsTest)).setText(lat + " : " + lon
+                                + " | " + curLatitude + " : " + curLongitude);
+                        if (Math.abs(lat - curLatitude) < 10 && Math.abs(lon - curLongitude) < 10) {
                             friends.add(s.getName());
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
                             mBuilder.setContentTitle("Notification Alert, Click Me!");
