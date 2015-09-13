@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     friendList.add((new Friend((String) postSnapshot.getValue(), postSnapshot.getKey())));
                 }
             }
+
             @Override
             public void onCancelled(FirebaseError firebaseError) {
             }
