@@ -98,6 +98,14 @@
         android:layout_above = "@id/friend"
         android:src = "@drawable/hand"/>
 
+    <ImageView android:id = "@+id/removeButton"
+        android:layout_width = "50dp"
+        android:layout_height = "50dp"
+        android:layout_alignParentLeft="true"
+        android:onClick = "removeFriendMenu"
+        android:layout_above = "@id/friendbutton"
+        android:src = "@drawable/hand"/>
+
     <!--<Button-->
         <!--android:id="@+id/button1"-->
         <!--android:layout_width="match_parent"-->
