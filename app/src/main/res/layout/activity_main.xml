@@ -81,7 +81,7 @@
         android:layout_height = "50dp"
         android:onClick = "addFriendMenu"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_above = "@+id/friendbutton"
         android:src = "@drawable/friendlist_2"/>
 
@@ -96,7 +96,7 @@
     <TextView
         android:id = "@+id/last_update_time_text"
         android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"/>
+        android:layout_height = "wrap_content" />
 
     <ImageView android:id = "@+id/mybutton"
         android:layout_width = "280dp"
@@ -104,16 +104,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:onClick = "myFancyMethod"
-        android:src = "@drawable/slap_2"/>
+        android:src = "@drawable/slap_2" />
 
     <ImageView android:id = "@+id/removeButton"
         android:layout_width = "50dp"
         android:layout_height = "50dp"
         android:onClick = "removeFriendMenu"
         android:layout_marginLeft="290dp"
-        android:layout_marginBottom = "20dp"
+        android:layout_marginBottom = "10dp"
         android:layout_above = "@id/friendbutton"
         android:src = "@drawable/skull_2"/>
+
+    <ImageView
+        android:layout_width = "50dp"
+        android:layout_height = "50dp"
+        android:layout_marginLeft="290dp"
+        android:layout_marginBottom = "70dp"
+        android:onClick = "about"
+        android:layout_above = "@id/friendbutton"
+        android:src = "@drawable/about" />
 
     <!--<Button-->
         <!--android:id="@+id/button1"-->

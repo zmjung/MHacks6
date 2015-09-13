@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void removeFriendMenu(View view) {
-        Intent intent = new Intent(this, removeFriend.class);
+        Intent intent = new Intent(this, RemoveFriend.class);
         startActivity(intent);
     }
 
@@ -337,5 +337,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         }
         Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
+    }
+
+    public void about(View v) {
+        Intent intent = new Intent(this, AddFriendMenu.class);
+        startActivity(intent);
     }
 }
