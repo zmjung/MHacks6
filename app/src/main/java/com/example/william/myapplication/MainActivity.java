@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //
 //                            // notificationID allows you to update the notification later on.
 //                            mNotificationManager.notify(notificationID, mBuilder.build());
-                            Notify("Message", "You've received new message");
+                            Notify();
 
                         }
                     }
@@ -262,16 +262,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
     }
 
-    private void Notify(String notificationTitle, String notificationMessage){
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        @SuppressWarnings("deprecation")
+    private void Notify(){
+        // Set the icon, scrolling text and timestamp
+        //We get a reference to the NotificationManager
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Notification notification = new Notification(R.drawable.common_signin_btn_icon_dark,"New Message", System.currentTimeMillis());
-        Intent notificationIntent = new Intent(this,NotificationView.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,notificationIntent, 0);
+        String MyText = "Reminder";
+        Notification mNotification = new Notification(R.drawable.mr_ic_audio_vol, MyText, System.currentTimeMillis() );
+        //The three parameters are: 1. an icon, 2. a title, 3. time when the notification appears
 
-        //notification.setLatestEventInfo(MainActivity.this, notificationTitle,notificationMessage, pendingIntent);
-        notificationManager.notify(9999, notification);
+        String MyNotificationTitle = "Medicine!";
+        String MyNotificationText  = "Don't forget to take your medicine!";
+
+        Intent MyIntent = new Intent(Intent.ACTION_VIEW);
+        PendingIntent StartIntent = PendingIntent.getActivity(getApplicationContext(),0,MyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        //A PendingIntent will be fired when the notification is clicked. The FLAG_CANCEL_CURRENT flag cancels the pendingintent
+        
+        int NOTIFICATION_ID = 1;
+        notificationManager.notify(NOTIFICATION_ID , mNotification);
     }
     public static void addFriend(String name, String number) {
         myFirebaseRef.child("FriendsList").child("9782014798").child(number).setValue(name);
