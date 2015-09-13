@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      */
     protected Location mLastLocation;
 
-    protected TextView mLatitudeText;
-    protected TextView mLongitudeText;
     protected GoogleApiClient mGoogleApiClient;
 
     public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
@@ -69,12 +66,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      * Represents a geographical location.
      */
     protected Location mCurrentLocation;
-
-    protected Button mStartUpdatesButton;
-    protected Button mStopUpdatesButton;
-    protected TextView mLastUpdateTimeTextView;
-    protected TextView mLatitudeTextView;
-    protected TextView mLongitudeTextView;
 
     protected Boolean mRequestingLocationUpdates;
 
@@ -91,21 +82,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
         dataBase();
 
-
-        // Locate the UI widgets.
-//        mStartUpdatesButton = (Button) findViewById(R.id.start_updates_button);
-//        mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
-//        mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
-//        mLastUpdateTimeTextView = (TextView) findViewById(R.id.last_update_time_text);
-
         mRequestingLocationUpdates = false;
         mLastUpdateTime = "";
 
-        // Update values using data stored in the Bundle.
         updateValuesFromBundle(savedInstanceState);
 
-        // Kick off the process of building a GoogleApiClient and requesting the LocationServices
-        // API.
         buildGoogleApiClient();
         friendList.add(new Friend("William Hsu", "5103649006"));
 
@@ -121,27 +102,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void updateValuesFromBundle(Bundle savedInstanceState) {
         Log.i(TAG, "Updating values from bundle");
         if (savedInstanceState != null) {
-            // Update the value of mRequestingLocationUpdates from the Bundle, and make sure that
-            // the Start Updates and Stop Updates buttons are correctly enabled or disabled.
             if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
                 mRequestingLocationUpdates = savedInstanceState.getBoolean(
                         REQUESTING_LOCATION_UPDATES_KEY);
-//                setButtonsEnabledState();
             }
-
-            // Update the value of mCurrentLocation from the Bundle and update the UI to show the
-            // correct latitude and longitude.
             if (savedInstanceState.keySet().contains(LOCATION_KEY)) {
-                // Since LOCATION_KEY was found in the Bundle, we can be sure that mCurrentLocation
-                // is not null.
                 mCurrentLocation = savedInstanceState.getParcelable(LOCATION_KEY);
             }
-
-            // Update the value of mLastUpdateTime from the Bundle and update the UI.
             if (savedInstanceState.keySet().contains(LAST_UPDATED_TIME_STRING_KEY)) {
                 mLastUpdateTime = savedInstanceState.getString(LAST_UPDATED_TIME_STRING_KEY);
             }
-            //updateUI();
         }
     }
 
@@ -156,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     protected void startLocationUpdates() {
-        // The final argument to {@code requestLocationUpdates()} is a LocationListener
-        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
@@ -178,10 +146,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onResume() {
         super.onResume();
-        // Within {@code onPause()}, we pause location updates, but leave the
-        // connection to GoogleApiClient intact.  Here, we resume receiving
-        // location updates if the user has requested them.
-
         if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
@@ -189,10 +153,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        // Provides a simple way of getting a device's location and is well suited for
-        // applications that do not require a fine-grained location and that do not need location
-        // updates. Gets the best and most recent location currently available, which may be null
-        // in rare cases when a location is not available.
         if (mCurrentLocation == null) {
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
@@ -223,23 +183,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onLocationChanged(Location location) {
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-       // updateUI();
         Toast.makeText(this, getResources().getString(R.string.location_updated_message),
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
-        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
-        // onConnectionFailed.
+
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
     }
 
 
     @Override
     public void onConnectionSuspended(int cause) {
-        // The connection to Google Play services was lost for some reason. We call connect() to
-        // attempt to re-establish the connection.
+
         Log.i(TAG, "Connection suspended");
         mGoogleApiClient.connect();
     }
@@ -301,19 +258,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
