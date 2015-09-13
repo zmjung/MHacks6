@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     if (((HashMap) snapshot.getValue()).containsKey(s.getNumber())) {
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
-                        if (Math.abs(lat - curLatitude) < .005 && Math.abs(lon - curLongitude) < .005) {
+                        if (Math.abs(lat - curLatitude) < .00005 && Math.abs(lon - curLongitude) < .00005) {
 //                            ((TextView) findViewById(R.id.friendsTest)).setText(lat + " : " + lon
 //                                    + " | " + curLatitude + " : " + curLongitude);
 
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.mr_ic_audio_vol)
                         .setContentTitle(name + " is nearby!")
-                        .setContentText("Open Slapchat and SLAP THEM!ss");
+                        .setContentText("Open Slapchat and SLAP THEM!");
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, MainActivity.class));
         PendingIntent resultPendingIntent =
