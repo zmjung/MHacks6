@@ -206,38 +206,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        }
     }
 
-//    public void startUpdatesButtonHandler(View view) {
-//        if (!mRequestingLocationUpdates) {
-//            mRequestingLocationUpdates = true;
-//            startLocationUpdates();
-//        }
-//    }
-
-//    public void stopUpdatesButtonHandler(View view) {
-//        if (mRequestingLocationUpdates) {
-//            mRequestingLocationUpdates = false;
-//            setButtonsEnabledState();
-//            stopLocationUpdates();
-//        }
-//    }
-
-
-//    private void setButtonsEnabledState() {
-//        if (mRequestingLocationUpdates) {
-//            mStartUpdatesButton.setEnabled(false);
-//        } else {
-//            mStartUpdatesButton.setEnabled(true);
-//            mStopUpdatesButton.setEnabled(false);
-//        }
-//    }
-
-//    private void updateUI() {
-//        if (mCurrentLocation != null) {
-//            mLatitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
-//            mLongitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
-//            mLastUpdateTimeTextView.setText(mLastUpdateTime);
-//        }
-//    }
 
     protected void stopLocationUpdates() {
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
@@ -306,10 +274,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
                             mBuilder.setContentTitle("Notification Alert, Click Me!");
                             mBuilder.setContentText("Hi, This is Android Notification Detail!");
-//                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-//                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
-//                                .setContentTitle("My notification")
-//                                .setContentText("Hello World!");
                             int mNotificationId = 001;
                             NotificationManager mNotifyMgr =
                                     (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -325,17 +289,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
     }
 
-
-//    public class GPS {
-//        private int[] gpsArray;
-//
-//        public GPS {
-//
-//        }
-//        public int[] getGps() {
-//            return gpsArray;
-//        }
-//    }
 
     public static void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
