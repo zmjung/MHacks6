@@ -81,7 +81,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         context = getApplicationContext();
         friendList = new ArrayList<>();
         myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
-        myFirebaseRef.child("FriendsList").child(deviceNumber).
+        myFirebaseRef.child("FriendsList").child(deviceNumber).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    friendList.add((new Friend((String) postSnapshot.getValue(), postSnapshot.getKey())));
+                }
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
+
 
         dataBase();
 
