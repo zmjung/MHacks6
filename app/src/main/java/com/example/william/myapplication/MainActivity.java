@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         myFirebaseRef.child("FriendsList").child("9782014798").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                friendList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     friendList.add((new Friend((String) postSnapshot.getValue(), postSnapshot.getKey())));
                 }
