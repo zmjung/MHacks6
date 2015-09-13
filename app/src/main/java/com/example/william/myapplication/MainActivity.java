@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         context = getApplicationContext();
         friendList = new ArrayList<>();
         myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
-        myFirebaseRef.child("FriendsList").child("9782014798").addValueEventListener(new ValueEventListener() {
+        myFirebaseRef.child("FriendsList").child(deviceNumber).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 friendList = new ArrayList<>();
@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         updateValuesFromBundle(savedInstanceState);
 
         buildGoogleApiClient();
-        friendList.add(new Friend("William Hsu", "5103649006"));
 
         ImageView buttonImage = (ImageView) findViewById(R.id.mybutton);
         buttonImage.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         }
-        Firebase curNumber = myFirebaseRef.child("PhoneNumbers").child("9782014798");
+        Firebase curNumber = myFirebaseRef.child("PhoneNumbers").child(deviceNumber);
         curNumber.child("0").setValue(mCurrentLocation.getLatitude());
         curNumber.child("1").setValue(mCurrentLocation.getLongitude());
         startLocationUpdates();
@@ -236,9 +235,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     if (((HashMap) snapshot.getValue()).containsKey(s.getNumber())) {
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
-                        ((TextView)findViewById(R.id.friendsTest)).setText(lat + " : " + lon
-                                + " | " + curLatitude + " : " + curLongitude);
                         if (Math.abs(lat - curLatitude) < 10 && Math.abs(lon - curLongitude) < 10) {
+                            ((TextView)findViewById(R.id.friendsTest)).setText(lat + " : " + lon
+                                    + " | " + curLatitude + " : " + curLongitude);
                             friends.add(s.getName());
 //                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 //                            mBuilder.setContentTitle("Notification Alert, Click Me!");
@@ -274,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         notificationManager.notify(9999, notification);
     }
     public static void addFriend(String name, String number) {
-        myFirebaseRef.child("FriendsList").child("9782014798").child(number).setValue(name);
+        myFirebaseRef.child("FriendsList").child(deviceNumber).child(number).setValue(name);
         friendList.add(new Friend(name, number));
 
     }
@@ -302,6 +301,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void getNumber() {
         TelephonyManager myNumber = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         deviceNumber = myNumber.getLine1Number();
+        if (deviceNumber == null) deviceNumber = "9782014798";
     }
 
     private void myFancyMethod(View v) {
