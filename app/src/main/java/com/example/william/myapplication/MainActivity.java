@@ -199,8 +199,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
            //updateUI();
         }
         //need current phonenumbers
-        locations.put("5103649006", new double[]{mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude()});
-        myFirebaseRef.child("PhoneNumbers").setValue(locations);
+        myFirebaseRef.child("PhoneNumbers").child("5103649006").child("0").setValue(mCurrentLocation.getLatitude());
+        myFirebaseRef.child("PhoneNumbers").child("5103649006").child("1").setValue(mCurrentLocation.getLongitude());
 //        if (mRequestingLocationUpdates) {
         startLocationUpdates();
 //        }
@@ -286,22 +286,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     private void dataBase() {
-        final String phoneNumber = "5103649006";
         final ArrayList<Long> gps = new ArrayList<>();
         if (mLastLocation != null) {
             gps.add((long) mLastLocation.getLongitude());
             gps.add((long) mLastLocation.getLatitude());
         } else {
             gps.add((long) 0);
-            gps.add((long) 0);
+            gps.add((long ) 0);
         }
         myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 ArrayList<String> friends = new ArrayList<>();
                 for (Friend s : friendList) {
-                        if ((Math.abs((double)snapshot.child(s.getNumber()).child("0").getValue() - gps.get(0)) < 1)
-                                && Math.abs((double)snapshot.child(s.getNumber()).child("1").getValue() - gps.get(1)) < 1) {
+                        if ((Math.abs((double)snapshot.child(s.getNumber()).child("0").getValue() - (double) gps.get(0)) < 1)
+                                && Math.abs((double)snapshot.child(s.getNumber()).child("1").getValue() - (double) gps.get(1)) < 1) {
                             friends.add(s.getName());
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
                             mBuilder.setContentTitle("Notification Alert, Click Me!");
@@ -339,7 +338,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     public static void addFriend(String name, String number) {
         friendList.add(new Friend(name, number));
-        friendList_Text.setText(friendList_Text.getText() + "\n" + name + " : " + number);
     }
 
     public void addFriendMenu(View view) {
