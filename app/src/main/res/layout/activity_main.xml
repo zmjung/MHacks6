@@ -17,41 +17,9 @@
             android:layout_height="60sp"
             android:gravity = "center"
             android:textStyle="bold"
-            android:text = "PRESS ME TO SLAP A NEARBY FRIEND!!"
+            android:text = "PRESS ME TO SLAP A NEARBY FRIEND!!!"
             android:textSize = "25sp"/>
-
-        <!--<Button-->
-            <!--android:id="@+id/start_updates_button"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:onClick="startUpdatesButtonHandler"-->
-            <!--android:text="Start Update" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/textView1"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Notification Example"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:textSize="30dp" />-->
-
-        <!--<TextView-->
-            <!--android:id = "@+id/friendsTest"-->
-            <!--android:layout_width = "match_parent"-->
-            <!--android:layout_height = "wrap_content"-->
-            <!--android:text = "@string/friendstest"/>-->
-        <!--<TextView-->
-            <!--android:id="@+id/latitude_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" />-->
-        <!--<TextView-->
-            <!--android:id="@+id/longitude_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" />-->
-
-        </LinearLayout>
+    </LinearLayout>
 
     <ImageView android:id = "@+id/friend"
         android:layout_width = "50dp"
@@ -79,7 +47,7 @@
         android:layout_width = "280dp"
         android:layout_height = "280dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="90dp"
         android:onClick = "myFancyMethod"
         android:src = "@drawable/slap_2" />
 
@@ -101,12 +69,6 @@
         android:layout_above = "@id/friendbutton"
         android:src = "@drawable/about" />
 
-    <!--<Button-->
-        <!--android:id="@+id/button1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:onClick="createNotification"-->
-        <!--android:text="Create Notification" />-->
 
 </RelativeLayout>
 
