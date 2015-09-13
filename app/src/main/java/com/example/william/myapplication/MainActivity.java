@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
     private HashMap<String, double[]> locations = new HashMap<>();
     private static Context context;
-    private Firebase myFirebaseRef;
+    private static Firebase myFirebaseRef;
 
 
     /**
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected Boolean mRequestingLocationUpdates;
 
     protected String mLastUpdateTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public static void addFriend(String name, String number) {
+        myFirebaseRef.child("FriendsList").child(getNumber()).child(number).setValue(name);
         friendList.add(new Friend(name, number));
     }
 
