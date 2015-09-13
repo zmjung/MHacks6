@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
     private static Context context;
     private static Firebase myFirebaseRef;
+    private ArrayList<String> friends;
 
 
     /**
@@ -236,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                ArrayList<String> friends = new ArrayList<>();
+                friends = new ArrayList<>();
                 double lat;
                 double lon;
                 for (Friend s : friendList) {
@@ -257,11 +258,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //                            mNotificationManager.notify(notificationID, mBuilder.build());
 
                             Notify(s.getName(), s.getNumber());
-
                         }
                     }
                 }
-
             }
 
             @Override
@@ -320,10 +319,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void myFancyMethod(View v) {
-        String phoneNo = "3147577588";
         String message = "SLAP!!!";
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNo, null, message, null, null);
+        if (friends == null || friends.size() == 0) {
+            sms.sendTextMessage(deviceNumber, null, message, null, null);
+        } else {
+            for (String elem : friends) {
+                sms.sendTextMessage(elem, null, message, null, null);
+            }
+        }
         Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
     }
 }
