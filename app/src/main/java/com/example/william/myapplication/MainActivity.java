@@ -299,8 +299,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onDataChange(DataSnapshot snapshot) {
                 ArrayList<String> friends = new ArrayList<>();
                 for (Friend s : friendList) {
-                        if ((Math.abs((double)snapshot.child(s.getNumber()).child("0").getValue() - (double) gps.get(0)) < 1)
-                                && Math.abs((double)snapshot.child(s.getNumber()).child("1").getValue() - (double) gps.get(1)) < 1) {
+                    
+                        if ((Math.abs((double)snapshot.child("PhoneNumbers").child(s.getNumber()).child("0").getValue() - (double) gps.get(0)) < 1)
+                                && Math.abs((double)snapshot.child("PhoneNumbers").child(s.getNumber()).child("1").getValue() - (double) gps.get(1)) < 1) {
                             friends.add(s.getName());
                             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
                             mBuilder.setContentTitle("Notification Alert, Click Me!");
