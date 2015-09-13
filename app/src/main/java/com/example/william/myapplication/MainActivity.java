@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected String mLastUpdateTime;
 
     private static String deviceNumber;
-
+    private TextView friendsList;
+    private String deviceFriends = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     friendList.add((new Friend((String) postSnapshot.getValue(), postSnapshot.getKey())));
                 }
+                friendsList = (TextView) findViewById(R.id.friendlist);
+                for (Friend f : friendList) {
+                    deviceFriends = deviceFriends + f.getName() + "-" + f.getNumber() + "\n";
+                }
+                friendsList.setText(deviceFriends);
+
             }
 
             @Override
@@ -280,6 +287,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     public void addFriendMenu(View view) {
         Intent intent = new Intent(this, AddFriendMenu.class);
+        startActivity(intent);
+    }
+
+    public void friendsListMenu(View view) {
+        Intent intent = new Intent(this, FriendsList.class);
         startActivity(intent);
     }
 

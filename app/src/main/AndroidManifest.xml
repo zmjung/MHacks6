@@ -4,15 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     package="com.google.android.gms.location.sample.basiclocationsample" >
-
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     package="com.google.android.gms.location.sample.locationupdates" >
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-
 
     <application
         android:allowBackup="true"
@@ -32,12 +28,19 @@
             android:name=".AddFriendMenu"
             android:label="@string/title_activity_add_friend_menu" >
         </activity>
+
         <activity android:name=".NotificationView"
             android:label="Details of notification"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
+        </activity>
+
+        <activity
+            android:name=".FriendsList"
+            android:label="@string/title_activity_friends_list" >
+
         </activity>
     </application>
 
