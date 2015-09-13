@@ -255,7 +255,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //
 //                            // notificationID allows you to update the notification later on.
 //                            mNotificationManager.notify(notificationID, mBuilder.build());
-                            Notify();
+
+                            Notify(s.getName(), s.getNumber());
 
                         }
                     }
@@ -269,11 +270,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
     }
 
-    private void Notify(){
+    private void Notify(String name, String number){
         Notification notification  = new Notification.Builder(this)
                 .setCategory(Notification.CATEGORY_MESSAGE)
-                .setContentTitle("test")
-                .setContentText("plswork")
+                .setContentTitle(name)
+                .setContentText(number)
                 .setSmallIcon(R.drawable.mr_ic_audio_vol)
                 .setAutoCancel(true)
                 .setVisibility(1).build();
