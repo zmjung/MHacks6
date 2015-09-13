@@ -70,17 +70,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     protected String mLastUpdateTime;
 
+    private static String deviceNumber;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getNumber();
         Firebase.setAndroidContext(this);
         context = getApplicationContext();
         friendList = new ArrayList<>();
-        friendList_Text = (TextView) findViewById(R.id.test);
         myFirebaseRef = new Firebase("https://dazzling-heat-5469.firebaseio.com/");
+        myFirebaseRef.child("FriendsList").child(deviceNumber).
+
         dataBase();
+
+
 
         mRequestingLocationUpdates = false;
         mLastUpdateTime = "";
@@ -234,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public static void addFriend(String name, String number) {
-        myFirebaseRef.child("FriendsList").child(getNumber()).child(number).setValue(name);
+        myFirebaseRef.child("FriendsList").child(deviceNumber).child(number).setValue(name);
         friendList.add(new Friend(name, number));
     }
 
@@ -258,9 +264,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return super.onOptionsItemSelected(item);
     }
 
-    private String getNumber() {
+    private void getNumber() {
         TelephonyManager myNumber = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        return myNumber.getLine1Number();
+        deviceNumber = myNumber.getLine1Number();
     }
 
     private void myFancyMethod(View v) {
