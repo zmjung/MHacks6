@@ -14,10 +14,10 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="50sp"
+            android:layout_height="60sp"
             android:gravity = "center"
             android:textStyle="bold"
-            android:text = "Press Me to Slap a Friend!!!"
+            android:text = "PRESS ME TO SLAP A NEARBY FRIEND!!"
             android:textSize = "25sp"/>
 
         <!--<Button-->

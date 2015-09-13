@@ -233,13 +233,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 friends = new ArrayList<>();
                 double lat;
                 double lon;
+                Notify(Integer.toString(friends.size()), friends.toString());
                 for (Friend s : friendList) {
                     if (((HashMap) snapshot.getValue()).containsKey(s.getNumber())) {
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
+                        Notify("first iteration", "true");
                         if (Math.abs(lat - curLatitude) < 10 && Math.abs(lon - curLongitude) < 10) {
 //                            ((TextView) findViewById(R.id.friendsTest)).setText(lat + " : " + lon
 //                                    + " | " + curLatitude + " : " + curLongitude);
+                            Notify("loop", "true");
                             friends.add(s.getName());
 //                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 //                            mBuilder.setContentTitle("Notification Alert, Click Me!");
