@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -244,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     if (((HashMap) snapshot.getValue()).containsKey(s.getNumber())) {
                         lat = (double) snapshot.child(s.getNumber()).child("0").getValue();
                         lon = (double) snapshot.child(s.getNumber()).child("1").getValue();
-                        if (Math.abs(lat - curLatitude) < 10 && Math.abs(lon - curLongitude) < 10) {
+                        if (Math.abs(lat - curLatitude) < .005 && Math.abs(lon - curLongitude) < .005) {
 //                            ((TextView) findViewById(R.id.friendsTest)).setText(lat + " : " + lon
 //                                    + " | " + curLatitude + " : " + curLongitude);
 
@@ -272,17 +273,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
     @TargetApi(21)
     private void Notify(String name, String number){
-        Notification notification  = new Notification.Builder(this)
-                .setCategory(Notification.CATEGORY_MESSAGE)
-                .setContentTitle(name + " is nearby!")
-                .setContentText("Open Slapchat and SLAP THEM!")
-                .setSmallIcon(R.drawable.mr_ic_audio_vol)
-                .setAutoCancel(true)
-                .setVisibility(1).build();
+//        Notification notification  = new Notification.Builder(this)
+//                .setCategory(Notification.CATEGORY_MESSAGE)
+//                .setContentTitle()
+//                .setContentText("Open Slapchat and SLAP THEM!")
+//                .setSmallIcon(R.drawable.mr_ic_audio_vol)
+//                .setAutoCancel(true)
+//                .setVisibility(1).build();
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.mr_ic_audio_vol)
+                        .setContentTitle(name + " is nearby!")
+                        .setContentText("Open Slapchat and SLAP THEM!ss");
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addNextIntent(new Intent(this, MainActivity.class));
-// Adds the Intent that starts the Activity to the top of the stack
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
                         0,
@@ -290,7 +294,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 );
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(001, notification);
+        mBuilder.setContentIntent(resultPendingIntent);
+        notificationManager.notify(001, mBuilder.build());
     }
     public static void addFriend(String name, String number) {
         myFirebaseRef.child("FriendsList").child(deviceNumber).child(number).setValue(name);
