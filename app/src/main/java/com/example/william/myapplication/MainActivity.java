@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
     public static void addFriend(String name, String number) {
         myFirebaseRef.child("FriendsList").child(deviceNumber).child(number).setValue(name);
-        friendList.add(new Friend(name, number));
+        friendList.add(new Friend(name, 1 + number));
 
     }
     public static void removeFriend(String name, String number) {
