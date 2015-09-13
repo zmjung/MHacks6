@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected final static String REQUESTING_LOCATION_UPDATES_KEY = "requesting-location-updates-key";
     protected final static String LOCATION_KEY = "location-key";
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
-    private HashMap<String, double[]> locations;
+    private HashMap<String, double[]> locations = new HashMap<>();
     private static Context context;
     private Firebase myFirebaseRef;
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             if (savedInstanceState.keySet().contains(LAST_UPDATED_TIME_STRING_KEY)) {
                 mLastUpdateTime = savedInstanceState.getString(LAST_UPDATED_TIME_STRING_KEY);
             }
-            updateUI();
+            //updateUI();
         }
     }
 
@@ -196,10 +196,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (mCurrentLocation == null) {
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-            updateUI();
+           //updateUI();
         }
         //need current phonenumbers
-        locations.put("currentPhonenumbers", new double[]{mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude()});
+        locations.put("5103649006", new double[]{mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude()});
         myFirebaseRef.child("PhoneNumbers").setValue(locations);
 //        if (mRequestingLocationUpdates) {
         startLocationUpdates();
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onLocationChanged(Location location) {
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        updateUI();
+       // updateUI();
         Toast.makeText(this, getResources().getString(R.string.location_updated_message),
                 Toast.LENGTH_SHORT).show();
     }
@@ -298,23 +298,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         myFirebaseRef.child("PhoneNumbers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                locations = (HashMap) snapshot.getValue();
                 ArrayList<String> friends = new ArrayList<>();
                 for (Friend s : friendList) {
-                    if ((Math.abs(locations.get(s.getNumber())[0] - gps.get(0)) < 1) && Math.abs(locations.get(s.getNumber())[1] - gps.get(1)) < 1) {
-                        friends.add(s.getName());
-                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-                        mBuilder.setContentTitle("Notification Alert, Click Me!");
-                        mBuilder.setContentText("Hi, This is Android Notification Detail!");
+                        if ((Math.abs((double)snapshot.child(s.getNumber()).child("0").getValue() - gps.get(0)) < 1)
+                                && Math.abs((double)snapshot.child(s.getNumber()).child("1").getValue() - gps.get(1)) < 1) {
+                            friends.add(s.getName());
+                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+                            mBuilder.setContentTitle("Notification Alert, Click Me!");
+                            mBuilder.setContentText("Hi, This is Android Notification Detail!");
 //                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
 //                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
 //                                .setContentTitle("My notification")
 //                                .setContentText("Hello World!");
-                        int mNotificationId = 001;
-                        NotificationManager mNotifyMgr =
-                                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        mNotifyMgr.notify(mNotificationId, mBuilder.build());
-                    }
+                            int mNotificationId = 001;
+                            NotificationManager mNotifyMgr =
+                                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+                        }
                 }
 
             }
