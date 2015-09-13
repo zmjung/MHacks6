@@ -37,12 +37,10 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static ArrayList<Friend> friendList;
-    private static TextView friendList_Text;
     protected static final String TAG = "location-updates-sample";
     protected final static String REQUESTING_LOCATION_UPDATES_KEY = "requesting-location-updates-key";
     protected final static String LOCATION_KEY = "location-key";
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
-    private HashMap<String, double[]> locations = new HashMap<>();
     private static Context context;
     private Firebase myFirebaseRef;
 
